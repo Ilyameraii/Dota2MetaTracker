@@ -1,0 +1,7 @@
+﻿services:
+  dota2metatracker:
+    image: dota2metatracker
+    build:
+      context: .
+      dockerfile: Dota2MetaTracker/Dockerfile
+
