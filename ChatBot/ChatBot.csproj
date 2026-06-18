@@ -13,11 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="CommandHandlers\"/>
-        <Folder Include="Renderers\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\ChatBot.Contracts\ChatBot.Contracts.csproj"/>
     </ItemGroup>
 
