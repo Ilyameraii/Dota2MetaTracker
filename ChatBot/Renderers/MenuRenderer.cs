@@ -1,5 +1,4 @@
 using ChatBot.Builders;
-using ChatBot.Constants;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -16,7 +15,7 @@ public class MenuRenderer(ITelegramBotClient bot) : BaseRenderer(bot)
     /// <inheritdoc/>
     protected override InlineKeyboardMarkup BuildKeyboard() => new InlineKeyboardBuilder()
         .AddRow(row => row
-            .Add("✅", "accept")
-            .Add("❌", "decline", KeyboardButtonStyle.Danger))
+            .AddButton("✅", "accept")
+            .AddButton("❌", "decline", KeyboardButtonStyle.Danger))
         .Build();
 }

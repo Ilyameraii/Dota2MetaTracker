@@ -13,7 +13,7 @@ public sealed class RowBuilder
     /// <summary>
     /// Добавляет кнопку с опциональным стилем.
     /// </summary>
-    public RowBuilder Add(
+    public RowBuilder AddButton(
         string text,
         string callbackData)
     {
@@ -25,7 +25,7 @@ public sealed class RowBuilder
     /// <summary>
     /// Добавляет кнопку с опциональным стилем.
     /// </summary>
-    public RowBuilder Add(
+    public RowBuilder AddButton(
         string text,
         string callbackData,
         KeyboardButtonStyle style)
