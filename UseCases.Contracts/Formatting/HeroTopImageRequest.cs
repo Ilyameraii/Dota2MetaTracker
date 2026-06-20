@@ -1,0 +1,12 @@
+using Services.Contracts.Models;
+
+namespace UseCases.Contracts.Formatting;
+
+public sealed record HeroTopImageRequest
+{
+    public required IReadOnlyList<Hero> Heroes { get; init; }
+    public required string Title { get; init; }
+    public HeroProcessingOptions? Options { get; init; }
+    public int RankOffset { get; init; }
+    public IReadOnlyDictionary<int, byte[]>? HeroAvatars { get; init; }
+}
