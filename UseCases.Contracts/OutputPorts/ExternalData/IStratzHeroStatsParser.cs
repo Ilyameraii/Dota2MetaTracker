@@ -5,7 +5,7 @@ namespace UseCases.Contracts.OutputPorts.ExternalData;
 /// <summary>
 ///     Парсер для преобразования JSON-ответа STRATZ API в модели предметной области
 /// </summary>
-public interface IStratzHeroParser
+public interface IStratzHeroStatsParser
 {
     /// <summary>
     ///     Парсит JSON со статистикой персонажей

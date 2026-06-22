@@ -2,11 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dota2MetaTracker", "Dota2MetaTracker\Dota2MetaTracker.csproj", "{CFB952E2-7030-466E-9301-A258C943B9A0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E2F4672-D053-4C67-9963-B78F6B7549D7}"
-	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBot", "ChatBot\ChatBot.csproj", "{E99BB5F2-1C63-402C-B906-B093BB97CDB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBot.Contracts", "ChatBot.Contracts\ChatBot.Contracts.csproj", "{B0EEF902-C9E8-445D-B10E-9BD2883D3DEC}"
@@ -32,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "UseCases\UseCases.csproj", "{26C0F155-710E-4080-BFA4-C4CF1C18B9C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratz", "Stratz\Stratz.csproj", "{0E52FE8E-710C-4FB8-BDA0-F07812ACEE6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache", "Cache\Cache.csproj", "{1C7C62CC-06E2-4006-AC34-19FAA1FA33DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +76,10 @@ Global
 		{0E52FE8E-710C-4FB8-BDA0-F07812ACEE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E52FE8E-710C-4FB8-BDA0-F07812ACEE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E52FE8E-710C-4FB8-BDA0-F07812ACEE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7C62CC-06E2-4006-AC34-19FAA1FA33DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7C62CC-06E2-4006-AC34-19FAA1FA33DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7C62CC-06E2-4006-AC34-19FAA1FA33DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7C62CC-06E2-4006-AC34-19FAA1FA33DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B0EEF902-C9E8-445D-B10E-9BD2883D3DEC} = {3D07644D-D30C-426C-99C3-40996E67260E}
@@ -90,5 +91,6 @@ Global
 		{6A1A28AC-258C-4C3C-A427-4892CED0F806} = {69A6A0E6-61A3-4A6E-845C-50842C4C2C55}
 		{26C0F155-710E-4080-BFA4-C4CF1C18B9C7} = {69A6A0E6-61A3-4A6E-845C-50842C4C2C55}
 		{0E52FE8E-710C-4FB8-BDA0-F07812ACEE6E} = {B355184D-BD7A-44D7-B3C4-90542F8ED742}
+		{1C7C62CC-06E2-4006-AC34-19FAA1FA33DC} = {B355184D-BD7A-44D7-B3C4-90542F8ED742}
 	EndGlobalSection
 EndGlobal

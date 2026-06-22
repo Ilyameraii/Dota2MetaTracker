@@ -15,7 +15,7 @@ public class StratzApiService(HttpClient httpClient) : IStratzApiService
     /// <summary>
     ///     Получает статистику персонажей из STRATZ API
     /// </summary>
-    public async Task<string> GetHeroesStats()
+    public async Task<string> GetHeroesStats(CancellationToken cancellationToken = default)
     {
         var query = QueryOfHeroesStats();
 
@@ -24,16 +24,16 @@ public class StratzApiService(HttpClient httpClient) : IStratzApiService
         var bodyJson = JsonSerializer.Serialize(bodyObj);
         var content = new StringContent(bodyJson, Encoding.UTF8, "application/json");
 
-        var response = await httpClient.PostAsync(GraphQlEndpoint, content);
+        var response = await httpClient.PostAsync(GraphQlEndpoint, content, cancellationToken);
         response.EnsureSuccessStatusCode();
 
-        return await response.Content.ReadAsStringAsync();
+        return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
     /// <summary>
     ///     Получает список имён персонажей из STRATZ API
     /// </summary>
-    public async Task<string> GetHeroesNames()
+    public async Task<string> GetHeroesNames(CancellationToken cancellationToken = default)
     {
         var query = QueryOfHeroesNames();
 
@@ -42,10 +42,10 @@ public class StratzApiService(HttpClient httpClient) : IStratzApiService
         var bodyJson = JsonSerializer.Serialize(bodyObj);
         var content = new StringContent(bodyJson, Encoding.UTF8, "application/json");
 
-        var response = await httpClient.PostAsync(GraphQlEndpoint, content);
+        var response = await httpClient.PostAsync(GraphQlEndpoint, content, cancellationToken);
         response.EnsureSuccessStatusCode();
 
-        return await response.Content.ReadAsStringAsync();
+        return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
     /// <summary>

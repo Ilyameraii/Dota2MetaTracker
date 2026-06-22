@@ -8,7 +8,7 @@ namespace Stratz;
 /// <summary>
 ///     Парсер для преобразования JSON-ответа STRATZ API в модели предметной области
 /// </summary>
-public class StratzHeroParser : IStratzHeroParser
+public class StratzHeroStatsParser : IStratzHeroStatsParser
 {
     private static readonly Dictionary<string, Rank> RankMap = new()
     {

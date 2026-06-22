@@ -8,10 +8,10 @@ public interface IStratzApiService
     /// <summary>
     ///     Получает статистику персонажей из STRATZ API
     /// </summary>
-    public Task<string> GetHeroesStats();
+    public Task<string> GetHeroesStats(CancellationToken cancellationToken);
 
     /// <summary>
     ///     Получает список имён персонажей из STRATZ API
     /// </summary>
-    public Task<string> GetHeroesNames();
+    public Task<string> GetHeroesNames(CancellationToken cancellationToken);
 }
