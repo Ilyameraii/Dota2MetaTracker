@@ -1,6 +1,6 @@
 using Services.Contracts.Models;
 
-namespace UseCases.Contracts.Formatting;
+namespace UseCases.Contracts.OutputPorts.Formatting;
 
 public sealed record HeroTopImageRequest
 {

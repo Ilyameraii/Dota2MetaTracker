@@ -1,9 +1,12 @@
+using System.Net.Http.Headers;
 using ChatBot;
 using ChatBot.CommandHandlers;
 using ChatBot.Contracts;
 using ChatBot.Renderers;
+using Stratz;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using UseCases.Contracts.OutputPorts.ExternalData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +28,14 @@ builder.Services.AddScoped<MenuRenderer>();
 // Command handlers
 builder.Services.AddScoped<ICommandHandler, StartCommandHandler>();
 
+// Сервисы Stratz
+// Program.cs
+builder.Services.AddHttpClient<IStratzApiService, StratzApiService>(client =>
+{
+    client.DefaultRequestHeaders.Add("User-Agent", "STRATZ_API");
+    client.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", builder.Configuration["StratzApi:Token"]);
+});
 
 var app = builder.Build();
 

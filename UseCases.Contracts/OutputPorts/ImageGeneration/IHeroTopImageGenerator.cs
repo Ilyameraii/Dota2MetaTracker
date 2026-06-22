@@ -1,4 +1,4 @@
-namespace UseCases.Contracts.Formatting;
+namespace UseCases.Contracts.OutputPorts.Formatting;
 
 public interface IHeroTopImageGenerator
 {
