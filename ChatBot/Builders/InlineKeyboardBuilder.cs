@@ -1,4 +1,4 @@
-using ChatBot.Extensions;
+using ChatBot.Builders.Extensions;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ChatBot.Builders;

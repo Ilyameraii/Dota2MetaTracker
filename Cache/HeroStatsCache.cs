@@ -24,6 +24,7 @@ public class HeroStatsCache : IHeroStatsCache
     /// <inheritdoc/>
     public bool IsLoaded => NewHeroesStats.Count != 0 && HeroesNames.Count != 0;
 
+    /// <inheritdoc/>
     public void Update(IReadOnlyList<HeroStat> stats, IReadOnlyDictionary<int, string> names, DateTime updatedAt)
     {
         NewHeroesStats = stats;

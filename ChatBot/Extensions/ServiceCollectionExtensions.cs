@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 
-namespace ChatBot.Extensions.DI;
+namespace ChatBot.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -15,7 +15,9 @@ public static class ServiceCollectionExtensions
             new TelegramBotClient(
                 token: configuration["Telegram:Token"]!,
                 httpClient: httpClient));
-
+    
+    services.AddScoped<BotClient>();
+    
     return services;
 }
 }

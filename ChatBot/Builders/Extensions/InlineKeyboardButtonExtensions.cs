@@ -1,6 +1,6 @@
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace ChatBot.Extensions;
+namespace ChatBot.Builders.Extensions;
 
 /// <summary>
 /// Методы расширения для <see cref="InlineKeyboardButton"/>.
