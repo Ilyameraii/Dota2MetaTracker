@@ -3,6 +3,7 @@ using ChatBot.CallbackHandlers.Extensions;
 using ChatBot.CommandHandlers.Extensions;
 using ChatBot.Extensions;
 using ChatBot.Renderers.Extensions;
+using ChatBot.Renderers.Extensions.DI;
 using Dota2MetaTracker.Extensions;
 using Stratz.Extensions;
 
