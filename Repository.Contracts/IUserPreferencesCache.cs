@@ -1,6 +1,6 @@
 using Services.Contracts.Models;
 
-namespace UseCases.Contracts.OutputPorts.UserState;
+namespace Repository.Contracts;
 
 public interface IUserPreferencesCache
 {

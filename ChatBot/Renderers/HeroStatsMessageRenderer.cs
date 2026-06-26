@@ -1,9 +1,9 @@
-using ChatBot.Constants;
 using ChatBot.Factories;
+using ChatBot.Models;
 using Services.Contracts.Models;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
-using UseCases.Contracts.OutputPorts.Cache;
+using UseCases.Contracts.InputPorts;
 
 namespace ChatBot.Renderers;
 
@@ -12,6 +12,7 @@ namespace ChatBot.Renderers;
 /// </summary>
 public class HeroStatsMessageRenderer(
     ITelegramBotClient bot,
+    IGetHeroMetaUseCase useCase,
     HeroStatsKeyboardFactory keyboardFactory,
     HeroStatsTextFactory textFactory,
     HeroStatsImageFactory imageFactory
@@ -31,16 +32,18 @@ public class HeroStatsMessageRenderer(
         UserPreferences prefs,
         CancellationToken ct = default)
     {
+        var heroes = useCase.Execute(prefs.ProcessingOptions);
+        var page = HeroMetaPage.Create(prefs, heroes);
         
-        currentKeyboard = keyboardFactory.Create(prefs);
+        currentKeyboard = keyboardFactory.Create(page);
 
         if (prefs.IsImageFormat)
         {
-            currentImage = await imageFactory.Create(prefs);
+            currentImage = await imageFactory.Create(page, ct);
         }
         else
         {
-            currentText = textFactory.Create(prefs);
+            currentText = textFactory.Create(page);
         }
 
 

@@ -1,5 +1,5 @@
 using Entities.Models;
-using UseCases.Contracts.OutputPorts.Cache;
+using Repository.Contracts.Cache;
 
 namespace Cache;
 

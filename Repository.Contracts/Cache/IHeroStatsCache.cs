@@ -1,6 +1,6 @@
 using Entities.Models;
 
-namespace UseCases.Contracts.OutputPorts.Cache;
+namespace Repository.Contracts.Cache;
 
 /// <summary>
 ///     Кэш для хранения данных о персонажах и времени последнего обновления

@@ -1,12 +1,16 @@
+using ChatBot.Formatters;
+using ChatBot.Models;
 using Services.Contracts.Models;
-using UseCases.Contracts.OutputPorts.Cache;
-
 namespace ChatBot.Factories;
 
-public class HeroStatsTextFactory(IHeroStatsCache heroStatsCache)
+public class HeroStatsTextFactory(
+    HeroTextFormatter heroFormatter)
 {
-    public string Create(UserPreferences  preferences)
+    public string Create(HeroMetaPage page)
     {
-        return string.Empty;
+        var lines = Enumerable.Range(0, page.PageHeroes.Count)
+            .Select(i => $"{page.Start + i + 1}. {heroFormatter.Format(page.PageHeroes[i])}");
+
+        return string.Join("\n\n", lines);
     }
 }

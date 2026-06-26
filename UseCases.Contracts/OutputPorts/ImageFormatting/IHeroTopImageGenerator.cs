@@ -1,4 +1,6 @@
-namespace UseCases.Contracts.OutputPorts.Formatting;
+using UseCases.Contracts.Models;
+
+namespace UseCases.Contracts.OutputPorts.ImageGeneration;
 
 public interface IHeroTopImageGenerator
 {

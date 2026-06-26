@@ -1,5 +1,5 @@
-﻿using UseCases.Contracts.InputPorts;
-using UseCases.Contracts.OutputPorts.Cache;
+﻿using Repository.Contracts.Cache;
+using UseCases.Contracts.InputPorts;
 using UseCases.Contracts.OutputPorts.ExternalData;
 
 namespace UseCases;

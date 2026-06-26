@@ -1,32 +1,29 @@
 using ChatBot.Builders;
 using ChatBot.Constants;
+using ChatBot.Models;
 using ChatBot.Renderers.Extensions;
 using Services.Contracts.Enums;
 using Services.Contracts.Models;
 using Telegram.Bot.Types.ReplyMarkups;
-using UseCases.Contracts.OutputPorts.Cache;
 
 namespace ChatBot.Factories;
 
-public class HeroStatsKeyboardFactory(IHeroStatsCache cache)
+public class HeroStatsKeyboardFactory
 {
-    public InlineKeyboardMarkup Create(UserPreferences prefs)
+    public InlineKeyboardMarkup Create(HeroMetaPage page)
     {
-        var totalPages = (cache.HeroCount - 1) / ValueConstants.HeroesPerPage;
-        var pageIndex = Math.Min(prefs.PageNumber, totalPages);
-        var options = prefs.ProcessingOptions;
-
-        string ToPage(int page) => $"{CallbackData.Prefixes.ToPage}:{page}:{totalPages}";
+        var options = page.Preferences.ProcessingOptions;
+        string ToPage(int pageNumber) => $"{CallbackData.Prefixes.ToPage}:{pageNumber}:{page.TotalPages}";
 
         var builder = new InlineKeyboardBuilder();
 
         // 1. Строка навигации (без стилей)
         builder.AddRow(
             ("◀◀", ToPage(0)),
-            ("◀", ToPage(pageIndex - 1)),
-            ($"{pageIndex + 1}/{totalPages + 1}", CallbackData.Actions.Noop),
-            ("▶", ToPage(pageIndex + 1)),
-            ("▶▶", ToPage(totalPages))
+            ("◀", ToPage(page.PageIndex - 1)),
+            ($"{page.PageIndex + 1}/{page.TotalPages + 1}", CallbackData.Actions.Noop),
+            ("▶", ToPage(page.PageIndex + 1)),
+            ("▶▶", ToPage(page.TotalPages))
         );
 
         // 2. Строки рангов и ролей (смешанные стили в одной строке)
@@ -62,7 +59,7 @@ public class HeroStatsKeyboardFactory(IHeroStatsCache cache)
         builder.AddButton("Сбросить", CallbackData.Actions.ClearOptions, KeyboardButtonStyle.Danger);
 
         // 5. Кнопка переключения формата (без стиля)
-        var switchFormatButtonText = $"{(prefs.IsImageFormat ? "✅" : "")} Режим изображения (медленный)";
+        var switchFormatButtonText = $"{(page.Preferences.IsImageFormat ? "✅" : "")} Режим изображения (медленный)";
         builder.AddButton(switchFormatButtonText, CallbackData.Actions.SwitchFormat);
 
         return builder.Build();

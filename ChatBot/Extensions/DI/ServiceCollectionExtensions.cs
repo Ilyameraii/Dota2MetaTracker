@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 
-namespace ChatBot.Extensions;
+namespace ChatBot.Extensions.DI;
 
 public static class ServiceCollectionExtensions
 {

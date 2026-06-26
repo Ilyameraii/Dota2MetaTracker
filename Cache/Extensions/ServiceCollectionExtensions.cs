@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using UseCases.Contracts.OutputPorts.Cache;
+using Repository.Contracts.Cache;
 
 namespace Cache.Extensions;
 

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Caching.Memory;
+using Repository.Contracts;
 using Services.Contracts.Models;
-using UseCases.Contracts.OutputPorts.UserState;
 
 namespace Users;
 
