@@ -21,6 +21,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Cache\Cache.csproj" />
       <ProjectReference Include="..\ChatBot\ChatBot.csproj" />
+      <ProjectReference Include="..\ImageGeneration\ImageGeneration.csproj" />
       <ProjectReference Include="..\Services\Services.csproj" />
       <ProjectReference Include="..\Stratz\Stratz.csproj" />
       <ProjectReference Include="..\UseCases.Contracts\UseCases.Contracts.csproj" />

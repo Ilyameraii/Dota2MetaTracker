@@ -7,7 +7,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddSingleton<IGetHeroMetaUseCase, GetHeroMetaUseCase>();
+        services.AddScoped<IGetHeroMetaUseCase, GetHeroMetaUseCase>();
+        services.AddScoped<IUpdateHeroStatsUseCase, UpdateHeroStatsUseCase>();
+
         return services;
     }
 }
