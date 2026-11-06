@@ -47,4 +47,5 @@ public class HeroStatsProcessor(
         var sorted = strategy.Sort(calculated, query.IsDescending);
         return sorted.ToList();
     }
+
 }

@@ -1,7 +1,6 @@
 using ChatBot.Models;
 using UseCases.Contracts.Models;
 using UseCases.Contracts.OutputPorts.ImageGenerating;
-using UseCases.Contracts.OutputPorts.ImageGeneration;
 
 namespace ChatBot.Factories;
 

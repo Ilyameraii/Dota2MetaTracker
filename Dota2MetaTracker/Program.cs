@@ -4,7 +4,7 @@ using ChatBot.CommandHandlers.Extensions;
 using ChatBot.Extensions.DI;
 using ChatBot.Renderers.Extensions.DI;
 using Dota2MetaTracker.Extensions;
-using ImageGeneration.Extensions;
+using Images.Extensions;
 using Services.Extensions;
 using Stratz.Extensions;
 using UseCases.Extensions;
@@ -20,7 +20,7 @@ builder.Services.AddCallbackHandlers();
 builder.Services.AddCommandHandlers();
 builder.Services.AddUseCases();
 builder.Services.AddServices();
-builder.Services.AddImageGeneration();
+builder.Services.AddImages();
 builder.Services.AddFactories();
 builder.Services.AddFormatters();
 

@@ -11,6 +11,6 @@ public class StartCommandHandler(HeroStatsMessageRenderer renderer, IUserPrefere
 
     public async Task HandleAsync(Message message, CancellationToken сancellationToken)
     {
-        await renderer.RenderAsync(chatId: message.Chat.Id, messageId: message.Id, prefs: cache.GetOrCreate(message.Chat.Id), ct: сancellationToken);
+        await renderer.RenderAsync(chatId: message.Chat.Id, messageId: null, prefs: cache.GetOrCreate(message.Chat.Id), ct: сancellationToken);
     }
 }

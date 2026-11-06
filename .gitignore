@@ -7,5 +7,6 @@
 # Файлы и настройки Rider
 *.iml
 .idea/
+.env
 
 appsettings.Development.json

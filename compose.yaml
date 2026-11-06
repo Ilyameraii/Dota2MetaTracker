@@ -1,7 +1,21 @@
 ﻿services:
   dota2metatracker:
-    image: dota2metatracker
+    image: dota2metatracker:latest
+
     build:
       context: .
       dockerfile: Dota2MetaTracker/Dockerfile
 
+    container_name: dota2metatracker
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      ASPNETCORE_HTTP_PORTS: "8080"
+      Telegram__Token: "${TELEGRAM_TOKEN}"
+      Telegram__SecretToken: "${TELEGRAM_SECRET_TOKEN}"
+      StratzApi__Token: "${STRATZ_API_TOKEN}"
+      Telegram__WebhookUrl: "${TELEGRAM_WEBHOOK_URL}"
+      
+    restart: unless-stopped

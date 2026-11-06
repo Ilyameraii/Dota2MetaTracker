@@ -1,4 +1,4 @@
-namespace UseCases.Contracts.OutputPorts.ImageGeneration;
+namespace UseCases.Contracts.OutputPorts.ImageGenerating;
 
 public interface IHeroAvatarProvider
 {

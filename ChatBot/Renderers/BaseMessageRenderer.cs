@@ -1,5 +1,6 @@
 using ChatBot.Constants;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -34,44 +35,79 @@ public abstract class BaseMessageRenderer(ITelegramBotClient bot)
         int? messageId = null,
         CancellationToken cancellationToken = default)
     {
-        if (messageId.HasValue)
+        var image = BuildImage();
+        var text = BuildText();
+        var keyboard = BuildKeyboard();
+
+        if (messageId is null)
         {
-            await EditAsync(chatId, messageId.Value, cancellationToken);
+            await SendAsync(chatId, image, text, keyboard, cancellationToken);
+            return;
         }
-        else
-            await SendAsync(chatId, cancellationToken);
+
+        await EditAsync(chatId, messageId.Value, image, text, keyboard, cancellationToken);
     }
 
-    private async Task SendAsync(long chatId, CancellationToken ct)
+    private async Task SendAsync(
+        long chatId,
+        byte[]? image,
+        string? text,
+        InlineKeyboardMarkup? keyboard,
+        CancellationToken ct)
     {
-        var image = BuildImage();
-
         if (image is not null)
         {
             await using var stream = new MemoryStream(image);
-            await bot.SendPhoto(chatId,
-                photo: stream,
-                replyMarkup: BuildKeyboard(),
-                parseMode: ParseMode.Html,
+
+            await bot.SendPhoto(
+                chatId,
+                photo: InputFile.FromStream(stream, "heroes.png"),
+                replyMarkup: keyboard,
                 cancellationToken: ct);
         }
         else
         {
-            await bot.SendMessage(chatId,
-                text: BuildText() ?? string.Empty,
-                replyMarkup: BuildKeyboard(),
+            await bot.SendMessage(
+                chatId,
+                text: text ?? string.Empty,
+                replyMarkup: keyboard,
                 parseMode: ParseMode.Html,
                 cancellationToken: ct);
         }
     }
 
-    private async Task EditAsync(long chatId, int messageId, CancellationToken ct)
+    private async Task EditAsync(
+        long chatId,
+        int messageId,
+        byte[]? image,
+        string? text,
+        InlineKeyboardMarkup? keyboard,
+        CancellationToken ct)
     {
-        await bot.EditMessageText(chatId,
-            messageId: messageId,
-            text: BuildText() ?? string.Empty,
-            replyMarkup: BuildKeyboard(),
-            parseMode: ParseMode.Html,
-            cancellationToken: ct);
+        if (image is not null)
+        {
+            await using var stream = new MemoryStream(image);
+
+            await bot.EditMessageMedia(
+                chatId,
+                messageId,
+                media: new InputMediaPhoto(InputFile.FromStream(stream, "heroes.png")),
+                replyMarkup: keyboard,
+                cancellationToken: ct);
+        }
+        else
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                throw new InvalidOperationException(
+                    "Нельзя редактировать текстовое сообщение пустым текстом.");
+
+            await bot.EditMessageText(
+                chatId,
+                messageId: messageId,
+                text: text,
+                replyMarkup: keyboard,
+                parseMode: ParseMode.Html,
+                cancellationToken: ct);
+        }
     }
 }
