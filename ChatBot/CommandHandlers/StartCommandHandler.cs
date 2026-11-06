@@ -10,7 +10,6 @@ public class StartCommandHandler(BaseMessageRenderer renderer) : ICommandHandler
 
     public async Task HandleAsync(Message message, CancellationToken сancellationToken)
     {
-        var few = string.Empty;
         await renderer.RenderAsync(chatId: message.Chat.Id, cancellationToken: сancellationToken);
     }
 }
