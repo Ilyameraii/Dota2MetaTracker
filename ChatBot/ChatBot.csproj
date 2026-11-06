@@ -17,6 +17,7 @@
     <ItemGroup>
         <ProjectReference Include="..\ChatBot.Contracts\ChatBot.Contracts.csproj"/>
         <ProjectReference Include="..\Entities\Entities.csproj" />
+        <ProjectReference Include="..\Repository.Contracts\Repository.Contracts.csproj" />
         <ProjectReference Include="..\UseCases.Contracts\UseCases.Contracts.csproj" />
     </ItemGroup>
 
