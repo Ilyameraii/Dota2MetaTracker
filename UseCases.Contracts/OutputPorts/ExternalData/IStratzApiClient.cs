@@ -1,17 +1,19 @@
+﻿using Entities.Models;
+
 namespace UseCases.Contracts.OutputPorts.ExternalData;
 
 /// <summary>
 ///     Сервис для взаимодействия с STRATZ GraphQL API
 /// </summary>
-public interface IStratzApiService
+public interface IStratzApiClient
 {
     /// <summary>
     ///     Получает статистику персонажей из STRATZ API
     /// </summary>
-    public Task<string> GetHeroesStats(CancellationToken cancellationToken);
-
+    Task<IReadOnlyList<HeroStat>> GetHeroStatsAsync(CancellationToken ct);
+    
     /// <summary>
     ///     Получает список имён персонажей из STRATZ API
     /// </summary>
-    public Task<string> GetHeroesNames(CancellationToken cancellationToken);
+    Task<IReadOnlyDictionary<int, string>> GetHeroNamesAsync(CancellationToken ct);
 }

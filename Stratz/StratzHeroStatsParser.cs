@@ -1,14 +1,13 @@
 using System.Text.Json.Nodes;
 using Entities.Enums;
 using Entities.Models;
-using UseCases.Contracts.OutputPorts.ExternalData;
 
 namespace Stratz;
 
 /// <summary>
 ///     Парсер для преобразования JSON-ответа STRATZ API в модели предметной области
 /// </summary>
-public class StratzHeroStatsParser : IStratzHeroStatsParser
+public class StratzHeroStatsParser
 {
     private static readonly Dictionary<string, Rank> RankMap = new()
     {

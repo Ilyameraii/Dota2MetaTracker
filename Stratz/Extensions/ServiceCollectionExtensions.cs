@@ -11,14 +11,14 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddHttpClient<IStratzApiService, StratzApiService>(client =>
+        services.AddHttpClient<IStratzApiClient, StratzApiClient>(client =>
         {
             client.DefaultRequestHeaders.Add("User-Agent", "STRATZ_API");
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", configuration["StratzApi:Token"]);
         });
 
-        services.AddSingleton<IStratzHeroStatsParser, StratzHeroStatsParser>();
+        services.AddSingleton<StratzHeroStatsParser>();
 
         return services;
     }

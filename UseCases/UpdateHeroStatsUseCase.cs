@@ -8,23 +8,16 @@ namespace UseCases;
 ///     Сервис для управления данными персонажей: обновление, сохранение, загрузка
 /// </summary>
 public class UpdateHeroStatsUseCase(
-    IStratzApiService apiService,
-    IStratzHeroStatsParser parser,
-    IHeroStatsCache cache         
-) : IUpdateHeroStatsUseCase
+    IStratzApiClient source,
+    IHeroStatsCache cache) : IUpdateHeroStatsUseCase
 {
-    public async Task UpdateNewStatsAsync(CancellationToken cancellationToken = default)
+    public async Task UpdateNewStatsAsync(CancellationToken ct = default)
     {
-        var statsRaw = await apiService.GetHeroesStats(cancellationToken);
-        var stats = parser.ParseHeroStats(statsRaw);
+        var stats = await source.GetHeroStatsAsync(ct);
+        if (stats.Count == 0)
+            throw new InvalidOperationException("Источник вернул пустой список героев.");
 
-        if (stats.Count == 0){
-            throw new InvalidOperationException("Stratz API вернул пустой список героев.");
-        }
-        
-        var namesRaw = await apiService.GetHeroesNames(cancellationToken);
-        var names = parser.ParseHeroesNames(namesRaw);
-
+        var names = await source.GetHeroNamesAsync(ct);
         cache.Update(stats, names, DateTime.UtcNow);
     }
 }
