@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddRenderers(this IServiceCollection services)
     {
-        services.AddScoped<BaseMessageRenderer, HeroStatsMessageRenderer>();
+        services.AddScoped<HeroStatsMessageRenderer>();
         return services;
     }
 }
