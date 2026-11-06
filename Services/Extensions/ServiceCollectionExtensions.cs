@@ -15,13 +15,20 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IHeroCalculator, HeroCalculator>();
         services.AddScoped<IHeroStatsProcessor, HeroStatsProcessor>();
 
-        services.AddScoped<IHeroSortStategy>(_ => new NotImplementedHeroSortStrategy(SortType.WinRate));
-        services.AddScoped<IHeroSortStategy>(_ => new NotImplementedHeroSortStrategy(SortType.WinrateDelta));
-        services.AddScoped<IHeroSortStategy>(_ => new NotImplementedHeroSortStrategy(SortType.MatchCount));
-        services.AddScoped<IHeroSortStategy>(_ => new NotImplementedHeroSortStrategy(SortType.PickrateDelta));
-        services.AddScoped<IHeroSortStategy>(_ => new NotImplementedHeroSortStrategy(SortType.Rating));
-        services.AddScoped<IHeroSortStategy>(_ => new NotImplementedHeroSortStrategy(SortType.RatingDelta));
+        services.AddSortStrategies();
+        
 
+        return services;
+    }
+
+    private static IServiceCollection AddSortStrategies(this IServiceCollection services)
+    {
+        services.AddScoped<IHeroSortStategy, MatchCountSortStrategy>();
+        services.AddScoped<IHeroSortStategy, PickrateDeltaSortStrategy>();
+        services.AddScoped<IHeroSortStategy, RatingDeltaSortStrategy>();
+        services.AddScoped<IHeroSortStategy, RatingSortStrategy>();
+        services.AddScoped<IHeroSortStategy, WinrateDeltaSortStrategy>();
+        services.AddScoped<IHeroSortStategy, WinrateSortStrategy>();
         return services;
     }
 }
