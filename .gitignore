@@ -8,5 +8,6 @@
 *.iml
 .idea/
 .env
+.opencode/
 
 appsettings.Development.json
