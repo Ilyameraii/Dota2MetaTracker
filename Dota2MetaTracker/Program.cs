@@ -3,6 +3,7 @@ using ChatBot.CallbackHandlers.Extensions;
 using ChatBot.CommandHandlers.Extensions;
 using ChatBot.Extensions.DI;
 using ChatBot.Renderers.Extensions.DI;
+using Dota2MetaTracker.BackgroundServices;
 using Dota2MetaTracker.Extensions;
 using Images.Extensions;
 using Services.Extensions;
@@ -23,6 +24,8 @@ builder.Services.AddServices();
 builder.Services.AddImages();
 builder.Services.AddFactories();
 builder.Services.AddFormatters();
+
+builder.Services.AddHostedService<HeroStatsUpdateBackgroundService>();
 
 // построение приложения
 var app = builder.Build();
