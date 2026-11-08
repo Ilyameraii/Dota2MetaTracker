@@ -27,7 +27,6 @@ builder.Services.AddFormatters();
 // построение приложения
 var app = builder.Build();
 
-await app.SetupTelegramWebhook();
 app.MapBotEndpoints(builder.Configuration);
 
 app.Run();

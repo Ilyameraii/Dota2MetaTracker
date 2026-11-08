@@ -1,3 +1,4 @@
+using ChatBot.BackgroundServices;
 using ChatBot.Factories;
 using ChatBot.Formatters;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ public static class ServiceCollectionExtensions
                     httpClient: httpClient));
 
         services.AddScoped<BotClient>();
+        services.AddHostedService<BotBackgroundService>();
 
         return services;
     }
