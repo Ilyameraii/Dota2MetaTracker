@@ -2,8 +2,8 @@ using ChatBot.Builders;
 using ChatBot.Constants;
 using ChatBot.Models;
 using ChatBot.Renderers.Extensions;
-using Services.Contracts.Enums;
-using Services.Contracts.Models;
+using Entities.Enums;
+using Entities.Models;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ChatBot.Factories;

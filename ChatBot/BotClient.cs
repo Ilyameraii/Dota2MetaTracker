@@ -1,5 +1,6 @@
 using ChatBot.Contracts;
 using Microsoft.Extensions.Logging;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -11,6 +12,7 @@ namespace ChatBot;
 public class BotClient(
     IEnumerable<ICommandHandler> commandHandlers,
     IEnumerable<ICallbackHandler> callbackHandlers,
+    ITelegramBotClient bot,
     ILogger<BotClient> logger)
 {
     /// <summary>
@@ -36,6 +38,7 @@ public class BotClient(
     private async Task HandleCallbackQueryAsync(CallbackQuery updateCallbackQuery, CancellationToken cancellationToken)
     {
         if (updateCallbackQuery.Data is null) return;
+
         var handler = callbackHandlers.FirstOrDefault(c => c.CanHandle(updateCallbackQuery.Data));
         if (handler is null) return;
         await handler.HandleAsync(updateCallbackQuery, cancellationToken);

@@ -1,4 +1,4 @@
-using Services.Contracts.Enums;
+using Entities.Enums;
 
 namespace ChatBot.Renderers.Extensions;
 

@@ -1,6 +1,6 @@
 using Repository.Contracts.Cache;
 using Services.Contracts.Interfaces.Processing;
-using Services.Contracts.Models;
+using Entities.Models;
 using UseCases.Contracts.InputPorts;
 
 namespace UseCases;

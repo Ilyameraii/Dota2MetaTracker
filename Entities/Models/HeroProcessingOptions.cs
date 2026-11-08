@@ -1,6 +1,6 @@
-using Services.Contracts.Enums;
+using Entities.Enums;
 
-namespace Services.Contracts.Models;
+namespace Entities.Models;
 
 /// <summary>
 ///     Параметры для обработки статистики персонажей

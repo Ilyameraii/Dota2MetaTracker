@@ -1,5 +1,4 @@
 using Entities.Models;
-using Services.Contracts.Models;
 
 namespace Services.Contracts.Interfaces.Processing;
 

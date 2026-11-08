@@ -1,4 +1,4 @@
-namespace Services.Contracts.Models;
+namespace Entities.Models;
 
 /// <summary>
 ///     Модель персонажа с агрегированной статистикой

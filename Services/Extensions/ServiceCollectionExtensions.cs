@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Services.Contracts.Enums;
+using Entities.Enums;
 using Services.Contracts.Interfaces.Processing;
 using Services.Processing;
 using Services.Processing.Sorting;

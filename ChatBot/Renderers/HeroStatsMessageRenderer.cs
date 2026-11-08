@@ -1,6 +1,6 @@
 using ChatBot.Factories;
 using ChatBot.Models;
-using Services.Contracts.Models;
+using Entities.Models;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 using UseCases.Contracts.InputPorts;

@@ -1,4 +1,4 @@
-namespace Services.Contracts.Models;
+namespace Entities.Models;
 
 /// <summary>
 ///     Настройки пользователя для отображения списка героев

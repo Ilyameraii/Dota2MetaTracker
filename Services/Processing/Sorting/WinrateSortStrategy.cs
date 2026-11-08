@@ -1,6 +1,6 @@
-using Services.Contracts.Enums;
+using Entities.Enums;
 using Services.Contracts.Interfaces.Processing;
-using Services.Contracts.Models;
+using Entities.Models;
 using Services.Processing.Sorting.Extensions;
 
 namespace Services.Processing.Sorting;

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Repository.Contracts;
-using Services.Contracts.Models;
+using Entities.Enums;
+using Entities.Models;
 
 namespace Users;
 
@@ -13,9 +14,7 @@ public class UserPreferencesCache(IMemoryCache cache) : IUserPreferencesCache
     private static readonly MemoryCacheEntryOptions EntryOptions = new MemoryCacheEntryOptions()
         .SetSlidingExpiration(TimeSpan.FromDays(30));
 
-    /// <summary>
-    ///     Возвращает настройки пользователя, создавая их при первом обращении.
-    /// </summary>
+    /// <inheritdoc/>
     public UserPreferences GetOrCreate(long userId)
     {
         return cache.GetOrCreate(userId, entry =>
@@ -23,14 +22,43 @@ public class UserPreferencesCache(IMemoryCache cache) : IUserPreferencesCache
             entry.SetOptions(EntryOptions);
             return new UserPreferences();
         })!;
-    }   
-    /// <summary>
-    ///     Применяет изменения к настройкам пользователя и возвращает обновлённый объект.
-    /// </summary>
-    public UserPreferences Update(long userId, Action<UserPreferences> update)
+    }
+
+    /// <inheritdoc/>
+    public void SetPage(long userId, int page, int max)
     {
         var preferences = GetOrCreate(userId);
-        update(preferences);
-        return preferences;
+        preferences.PageNumber = Math.Clamp(page, 0, Math.Max(max, 0));
     }
+
+    /// <inheritdoc/>
+    public void ToggleRank(long userId, RankFlags rank) => GetOrCreate(userId).ProcessingOptions.Ranks ^= rank;
+
+    /// <inheritdoc/>
+    public void ToggleRole(long userId, RoleFlags role) => GetOrCreate(userId).ProcessingOptions.Roles ^= role;
+
+    /// <inheritdoc/>
+    public void SetSort(long userId, SortType sortType)
+    {
+        var preferences = GetOrCreate(userId);
+        var options = preferences.ProcessingOptions;
+
+        if (options.SortBy == sortType)
+        {
+            options.IsDescending = !options.IsDescending;
+        }
+        else
+        {
+            options.SortBy = sortType;
+            options.IsDescending = true;
+        }
+
+        preferences.PageNumber = 0;
+    }
+
+    /// <inheritdoc/>
+    public void Reset(long userId) => GetOrCreate(userId).Reset();
+
+    /// <inheritdoc/>
+    public void SwitchFormat(long userId) => GetOrCreate(userId).SwitchFormat();
 }

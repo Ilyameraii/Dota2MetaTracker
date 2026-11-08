@@ -1,5 +1,5 @@
 using Entities.Models;
-using Services.Contracts.Enums;
+using Entities.Enums;
 using Services.Contracts.Interfaces.Processing;
 using Services.Processing.Extensions;
 

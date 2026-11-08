@@ -1,4 +1,4 @@
-﻿using Services.Contracts.Models;
+﻿using Entities.Models;
 
 namespace Services.Processing.Sorting.Extensions;
 

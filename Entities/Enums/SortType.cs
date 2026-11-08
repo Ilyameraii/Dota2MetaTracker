@@ -1,4 +1,4 @@
-namespace Services.Contracts.Enums;
+namespace Entities.Enums;
 
 /// <summary>
 ///     Тип сортировки героев
