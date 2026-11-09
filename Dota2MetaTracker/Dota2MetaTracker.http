@@ -1,6 +1,0 @@
-@Dota2MetaTracker_HostAddress = http://localhost:5262
-
-GET {{Dota2MetaTracker_HostAddress}}/bot
-Accept: application/json
-
-###

@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ChatBot\ChatBot.csproj" />
       <ProjectReference Include="..\Repository.Contracts\Repository.Contracts.csproj" />
       <ProjectReference Include="..\Services.Contracts\Services.Contracts.csproj" />
       <ProjectReference Include="..\UseCases.Contracts\UseCases.Contracts.csproj" />
