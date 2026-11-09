@@ -4,6 +4,7 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet tool restore
+RUN dotnet tool restore \
+    && dotnet restore "Dota2MetaTracker/Dota2MetaTracker.csproj"
 
 ENTRYPOINT ["dotnet", "tool", "run", "dotnet-ef", "database", "update", "--project", "Context", "--startup-project", "Dota2MetaTracker"]

@@ -1,3 +1,4 @@
+using Context.Repositories.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IUnitOfWork>(provider =>
             provider.GetRequiredService<MetaTrackerDbContext>());
+
+        services.AddRepositories();
 
         return services;
     }

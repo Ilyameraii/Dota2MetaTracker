@@ -10,7 +10,7 @@ public class HeroStatsCache : IHeroStatsCache
     public IReadOnlyList<HeroStat> NewHeroesStats { get; private set; } = [];
 
     /// <inheritdoc/>
-    public IReadOnlyList<HeroStat> OldHeroesStats { get; } = [];
+    public IReadOnlyList<HeroStat> OldHeroesStats { get; private set; } = [];
 
     /// <inheritdoc/>
     public IReadOnlyDictionary<int, string> HeroesNames { get; private set; } = new Dictionary<int, string>();
@@ -25,9 +25,14 @@ public class HeroStatsCache : IHeroStatsCache
     public bool IsLoaded => NewHeroesStats.Count != 0 && HeroesNames.Count != 0;
 
     /// <inheritdoc/>
-    public void Update(IReadOnlyList<HeroStat> stats, IReadOnlyDictionary<int, string> names, DateTime updatedAt)
+    public void Update(
+        IReadOnlyList<HeroStat> stats,
+        IReadOnlyList<HeroStat> oldStats,
+        IReadOnlyDictionary<int, string> names,
+        DateTime updatedAt)
     {
         NewHeroesStats = stats;
+        OldHeroesStats = oldStats;
         HeroesNames = names;
         UpdateTime = updatedAt;
     }

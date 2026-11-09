@@ -41,7 +41,12 @@ public interface IHeroStatsCache
     ///     Обновление статистики
     /// </summary>
     /// <param name="stats">Новая статистика персонажей</param>
+    /// <param name="oldStats">Статистика персонажей недельной давности</param>
     /// <param name="names">Имена персонажей</param>
     /// <param name="updatedAt">Время обновления</param>
-    void Update(IReadOnlyList<HeroStat> stats, IReadOnlyDictionary<int, string> names, DateTime updatedAt);
+    void Update(
+        IReadOnlyList<HeroStat> stats,
+        IReadOnlyList<HeroStat> oldStats,
+        IReadOnlyDictionary<int, string> names,
+        DateTime updatedAt);
 }

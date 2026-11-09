@@ -26,4 +26,14 @@ public interface IMetaUpdateRepository
     ///     Добавляет новое обновление статистики
     /// </summary>
     Task AddAsync(MetaUpdate metaUpdate, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Возвращает обновления статистики не новее указанной даты, начиная с самого свежего
+    /// </summary>
+    Task<IReadOnlyList<MetaUpdate>> GetOlderThanAsync(DateTime cutoff, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Помечает набор обновлений статистики на удаление
+    /// </summary>
+    void RemoveRange(IEnumerable<MetaUpdate> metaUpdates);
 }
