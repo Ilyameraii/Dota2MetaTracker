@@ -1,4 +1,42 @@
 ﻿services:
+  postgres:
+    image: postgres:17-alpine
+
+    container_name: dota2metatracker-postgres
+
+    environment:
+      POSTGRES_DB: dota2metatracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d dota2metatracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    restart: unless-stopped
+
+  migrator:
+    build:
+      context: .
+      dockerfile: Context/Dockerfile.migrations
+
+    environment:
+      ConnectionStrings__MetaTracker: "Host=postgres;Port=5432;Database=dota2metatracker;Username=postgres;Password=${POSTGRES_PASSWORD}"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    restart: "no"
+
   dota2metatracker:
     image: dota2metatracker:latest
 
@@ -17,5 +55,15 @@
       Telegram__SecretToken: "${TELEGRAM_SECRET_TOKEN}"
       StratzApi__Token: "${STRATZ_API_TOKEN}"
       Telegram__WebhookUrl: "${TELEGRAM_WEBHOOK_URL}"
-      
+      ConnectionStrings__MetaTracker: "Host=postgres;Port=5432;Database=dota2metatracker;Username=postgres;Password=${POSTGRES_PASSWORD}"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+
     restart: unless-stopped
+
+volumes:
+  postgres-data:
