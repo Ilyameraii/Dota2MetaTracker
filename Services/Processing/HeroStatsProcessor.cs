@@ -1,7 +1,6 @@
 using Entities.Models;
-using Services.Contracts.Enums;
+using Entities.Enums;
 using Services.Contracts.Interfaces.Processing;
-using Services.Contracts.Models;
 
 namespace Services.Processing;
 
@@ -47,4 +46,5 @@ public class HeroStatsProcessor(
         var sorted = strategy.Sort(calculated, query.IsDescending);
         return sorted.ToList();
     }
+
 }

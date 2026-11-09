@@ -1,20 +1,24 @@
 using ChatBot.Constants;
 using ChatBot.Contracts;
-using Telegram.Bot.Types;
+using ChatBot.Renderers;
+using Repository.Contracts;
 
 namespace ChatBot.CallbackHandlers;
 
 /// <summary>
 /// Реализация <see cref="ICallbackHandler"/> для обработки переключения формата отображения.
 /// </summary>
-public class SwitchFormatCallbackHandler : ICallbackHandler
+public class SwitchFormatCallbackHandler(
+    IUserPreferencesCache cache,
+    HeroStatsMessageRenderer renderer) : CallbackHandlerBase(cache, renderer)
 {
     /// <inheritdoc/>
-    public bool CanHandle(string callbackData) => callbackData.StartsWith(CallbackData.Actions.SwitchFormat);
+    public override bool CanHandle(string callbackData) => callbackData == CallbackData.Actions.SwitchFormat;
 
     /// <inheritdoc/>
-    public Task HandleAsync(CallbackQuery callbackQuery, CancellationToken ct = default)
+    protected override bool TryUpdate(long userId, string callbackData)
     {
-        throw new NotImplementedException();
+        PreferencesCache.SwitchFormat(userId);
+        return true;
     }
 }

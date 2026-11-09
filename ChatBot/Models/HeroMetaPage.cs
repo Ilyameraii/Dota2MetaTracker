@@ -1,5 +1,5 @@
 using ChatBot.Constants;
-using Services.Contracts.Models;
+using Entities.Models;
 
 namespace ChatBot.Models;
 

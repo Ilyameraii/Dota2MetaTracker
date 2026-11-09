@@ -1,5 +1,5 @@
-using Services.Contracts.Enums;
-using Services.Contracts.Models;
+using Entities.Enums;
+using Entities.Models;
 
 namespace Services.Contracts.Interfaces.Processing;
 

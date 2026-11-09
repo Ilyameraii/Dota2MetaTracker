@@ -1,7 +1,7 @@
 using System.Globalization;
 using ChatBot.Extensions.Helpers;
 using ChatBot.Helpers;
-using Services.Contracts.Models;
+using Entities.Models;
 
 namespace ChatBot.Formatters;
 

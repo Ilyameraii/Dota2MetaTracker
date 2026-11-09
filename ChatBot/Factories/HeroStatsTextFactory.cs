@@ -1,6 +1,6 @@
 using ChatBot.Formatters;
 using ChatBot.Models;
-using Services.Contracts.Models;
+using Entities.Models;
 namespace ChatBot.Factories;
 
 public class HeroStatsTextFactory(

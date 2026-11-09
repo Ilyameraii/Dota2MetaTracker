@@ -7,5 +7,7 @@
 # Файлы и настройки Rider
 *.iml
 .idea/
+.env
+.opencode/
 
 appsettings.Development.json

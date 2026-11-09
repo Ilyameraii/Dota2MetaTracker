@@ -1,11 +1,11 @@
 using ChatBot.Models;
 using UseCases.Contracts.Models;
-using UseCases.Contracts.OutputPorts.ImageGeneration;
+using UseCases.Contracts.OutputPorts.ImageGenerating;
 
 namespace ChatBot.Factories;
 
 public class HeroStatsImageFactory(
-    IHeroTopImageGenerator imageGenerator,
+    IHeroStatsImageGenerator imageGenerator,
     IHeroAvatarProvider avatarProvider)
 {
     public async Task<Byte[]> Create(
@@ -14,15 +14,15 @@ public class HeroStatsImageFactory(
     {
         var avatars = await avatarProvider.GetAvatarsAsync(page.PageHeroes.Select(h => h.Id), cancellationToken);
 
-        return imageGenerator.Generate(
-            new HeroTopImageRequest
+        return await imageGenerator.GenerateAsync(
+            new HeroStatsImageRequest
             {
                 Heroes = page.PageHeroes,
                 HeroAvatars = avatars,
                 Title = $"ТОП-{page.End}",
                 Options = page.Preferences.ProcessingOptions,
                 RankOffset = page.Start,
-            }
+            }, cancellationToken
         );
     }
 }

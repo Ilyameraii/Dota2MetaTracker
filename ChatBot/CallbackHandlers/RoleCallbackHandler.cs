@@ -1,20 +1,28 @@
 using ChatBot.Constants;
 using ChatBot.Contracts;
-using Telegram.Bot.Types;
+using ChatBot.Renderers;
+using Repository.Contracts;
+using Entities.Enums;
 
 namespace ChatBot.CallbackHandlers;
 
 /// <summary>
 /// Реализация <see cref="ICallbackHandler"/> для обработки выбора фильтра по роли.
 /// </summary>
-public class RoleCallbackHandler : ICallbackHandler
+public class RoleCallbackHandler(
+    IUserPreferencesCache cache,
+    HeroStatsMessageRenderer renderer) : CallbackHandlerBase(cache, renderer)
 {
     /// <inheritdoc/>
-    public bool CanHandle(string callbackData) => callbackData.StartsWith(CallbackData.Prefixes.Role);
+    public override bool CanHandle(string callbackData) => callbackData.StartsWith(CallbackData.Prefixes.Role);
 
     /// <inheritdoc/>
-    public Task HandleAsync(CallbackQuery callbackQuery, CancellationToken ct = default)
+    protected override bool TryUpdate(long userId, string callbackData)
     {
-        throw new NotImplementedException();
+        if (!TryParseEnumValue(callbackData, CallbackData.Prefixes.Role, out RoleFlags role))
+            return false;
+
+        PreferencesCache.ToggleRole(userId, role);
+        return true;
     }
 }
