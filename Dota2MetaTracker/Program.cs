@@ -24,8 +24,7 @@ builder.Services.AddServices();
 builder.Services.AddImages();
 builder.Services.AddFactories();
 builder.Services.AddFormatters();
-
-builder.Services.AddHostedService<HeroStatsUpdateBackgroundService>();
+builder.Services.AddBackgroundServices();
 
 // построение приложения
 var app = builder.Build();
