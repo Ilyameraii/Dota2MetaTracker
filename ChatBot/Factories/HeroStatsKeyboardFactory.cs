@@ -13,16 +13,16 @@ public class HeroStatsKeyboardFactory
     public InlineKeyboardMarkup Create(HeroMetaPage page)
     {
         var options = page.Preferences.ProcessingOptions;
-        string ToPage(int pageNumber) => $"{CallbackData.Prefixes.ToPage}:{pageNumber}:{page.TotalPages}";
+        string ToPage(int pageNumber) => $"{CallbackData.Prefixes.ToPage}{pageNumber}";
 
         var builder = new InlineKeyboardBuilder();
 
         // 1. Строка навигации (без стилей)
         builder.AddRow(
             ("◀◀", ToPage(0)),
-            ("◀", ToPage(page.PageIndex - 1)),
+            ("◀", ToPage(Math.Max(0, page.PageIndex - 1))),
             ($"{page.PageIndex + 1}/{page.TotalPages + 1}", CallbackData.Actions.Noop),
-            ("▶", ToPage(page.PageIndex + 1)),
+            ("▶", ToPage(Math.Min(page.TotalPages, page.PageIndex + 1))),
             ("▶▶", ToPage(page.TotalPages))
         );
 

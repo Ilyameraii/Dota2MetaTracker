@@ -34,7 +34,11 @@ public class HeroStatsMessageRenderer(
     {
         var heroes = useCase.Execute(prefs.ProcessingOptions);
         var page = HeroMetaPage.Create(prefs, heroes);
-        
+
+        // Синхронизируем сохранённую страницу с фактически отображаемой:
+        // список мог сократиться из-за фильтров или обновления статистики.
+        prefs.PageNumber = page.PageIndex;
+
         currentKeyboard = keyboardFactory.Create(page);
 
         if (prefs.IsImageFormat)

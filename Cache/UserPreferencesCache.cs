@@ -32,10 +32,20 @@ public class UserPreferencesCache(IMemoryCache cache) : IUserPreferencesCache
     }
 
     /// <inheritdoc/>
-    public void ToggleRank(long userId, RankFlags rank) => GetOrCreate(userId).ProcessingOptions.Ranks ^= rank;
+    public void ToggleRank(long userId, RankFlags rank)
+    {
+        var preferences = GetOrCreate(userId);
+        preferences.ProcessingOptions.Ranks ^= rank;
+        preferences.PageNumber = 0;
+    }
 
     /// <inheritdoc/>
-    public void ToggleRole(long userId, RoleFlags role) => GetOrCreate(userId).ProcessingOptions.Roles ^= role;
+    public void ToggleRole(long userId, RoleFlags role)
+    {
+        var preferences = GetOrCreate(userId);
+        preferences.ProcessingOptions.Roles ^= role;
+        preferences.PageNumber = 0;
+    }
 
     /// <inheritdoc/>
     public void SetSort(long userId, SortType sortType)
