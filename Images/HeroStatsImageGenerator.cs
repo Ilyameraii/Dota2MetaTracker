@@ -9,7 +9,7 @@ namespace Images;
 /// <summary>
 ///     Генератор изображений для топа героев мета Dota 2
 /// </summary>
-public class HeroStatsImageGenerator(HeroAvatarProvider avatarProvider) : IHeroStatsImageGenerator
+public class HeroStatsImageGenerator(IHeroAvatarProvider avatarProvider) : IHeroStatsImageGenerator
 {
     // === Размеры холста ===
     private const int Width = 900;

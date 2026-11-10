@@ -34,6 +34,12 @@ public abstract class BaseMessageRenderer(ITelegramBotClient bot)
     protected virtual byte[]? BuildImage() => null;
 
     /// <summary>
+    /// Отправляет текстовое сообщение в чат.
+    /// </summary>
+    protected Task SendMessageAsync(long chatId, string text, CancellationToken cancellationToken)
+        => bot.SendMessage(chatId, text: text, cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Отправляет новое сообщение или редактирует существующее.
     /// </summary>
     /// <param name="chatId">Идентификатор чата.</param>

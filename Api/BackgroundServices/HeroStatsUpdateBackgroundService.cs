@@ -1,9 +1,9 @@
 using UseCases.Contracts.InputPorts;
 
-namespace TelegramBot.BackgroundServices;
+namespace Api.BackgroundServices;
 
 /// <summary>
-/// Фоновая служба периодического обновления статистики героев из STRATZ.
+///     Фоновая служба периодического обновления статистики героев из STRATZ.
 /// </summary>
 public sealed class HeroStatsUpdateBackgroundService(
     IServiceScopeFactory scopeFactory,
