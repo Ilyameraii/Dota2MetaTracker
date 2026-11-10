@@ -37,6 +37,31 @@
 
     restart: "no"
 
+  api:
+    image: dota2metatracker-api:latest
+
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+
+    container_name: dota2metatracker-api
+
+    expose:
+      - "8080"
+
+    environment:
+      ASPNETCORE_HTTP_PORTS: "8080"
+      StratzApi__Token: "${STRATZ_API_TOKEN}"
+      ConnectionStrings__MetaTracker: "Host=postgres;Port=5432;Database=dota2metatracker;Username=postgres;Password=${POSTGRES_PASSWORD}"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+
+    restart: unless-stopped
+
   dota2metatracker:
     image: dota2metatracker:latest
 
@@ -53,15 +78,16 @@
       ASPNETCORE_HTTP_PORTS: "8080"
       Telegram__Token: "${TELEGRAM_TOKEN}"
       Telegram__SecretToken: "${TELEGRAM_SECRET_TOKEN}"
-      StratzApi__Token: "${STRATZ_API_TOKEN}"
       Telegram__WebhookUrl: "${TELEGRAM_WEBHOOK_URL}"
-      ConnectionStrings__MetaTracker: "Host=postgres;Port=5432;Database=dota2metatracker;Username=postgres;Password=${POSTGRES_PASSWORD}"
+      Api__BaseUrl: "http://api:8080"
 
     depends_on:
       postgres:
         condition: service_healthy
       migrator:
         condition: service_completed_successfully
+      api:
+        condition: service_started
 
     restart: unless-stopped
 
@@ -75,13 +101,12 @@
     container_name: dota2metatracker-webapp
 
     ports:
-      - "8081:8080"
+      - "80:80"
 
-    environment:
-      ASPNETCORE_HTTP_PORTS: "8080"
+    depends_on:
+      - api
 
     restart: unless-stopped
 
 volumes:
   postgres-data:
-

@@ -2,7 +2,6 @@ using TelegramBot.Constants;
 using TelegramBot.Models;
 using TelegramBot.Renderers.Extensions;
 using Entities.Enums;
-using Entities.Models;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.Builders;
 

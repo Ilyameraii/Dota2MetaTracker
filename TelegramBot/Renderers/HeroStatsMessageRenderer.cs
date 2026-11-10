@@ -15,7 +15,8 @@ public class HeroStatsMessageRenderer(
     IGetHeroMetaUseCase useCase,
     HeroStatsKeyboardFactory keyboardFactory,
     HeroStatsTextFactory textFactory,
-    HeroStatsImageFactory imageFactory
+    HeroStatsImageFactory imageFactory,
+    ILogger<HeroStatsMessageRenderer> logger
 )
     : BaseMessageRenderer(bot)
 {
@@ -32,7 +33,24 @@ public class HeroStatsMessageRenderer(
         UserPreferences prefs,
         CancellationToken ct = default)
     {
-        var heroes = useCase.Execute(prefs.ProcessingOptions);
+        List<Hero> heroes;
+
+        try
+        {
+            heroes = await useCase.ExecuteAsync(prefs.ProcessingOptions, ct);
+        }
+        catch (Exception ex) when (!ct.IsCancellationRequested)
+        {
+            logger.LogError(ex, "Не удалось получить данные о героях из API.");
+
+            await SendMessageAsync(
+                chatId,
+                "Не удалось получить данные о героях. Сервис временно недоступен, попробуйте позже.",
+                ct);
+
+            return;
+        }
+
         var page = HeroMetaPage.Create(prefs, heroes);
 
         // Синхронизируем сохранённую страницу с фактически отображаемой:

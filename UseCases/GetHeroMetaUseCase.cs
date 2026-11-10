@@ -9,12 +9,16 @@ public class GetHeroMetaUseCase(
     IHeroStatsCache cache,
     IHeroStatsProcessor processor): IGetHeroMetaUseCase
 {
-    public List<Hero> Execute(HeroProcessingOptions options)
+    public Task<List<Hero>> ExecuteAsync(
+        HeroProcessingOptions options,
+        CancellationToken cancellationToken = default)
     {
-        return processor.GetProcessedHeroStats(
-            cache.NewHeroesStats, 
-            cache.OldHeroesStats, 
-            cache.HeroesNames, 
-            options);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return Task.FromResult(processor.GetProcessedHeroStats(
+            cache.NewHeroesStats,
+            cache.OldHeroesStats,
+            cache.HeroesNames,
+            options));
     }
 }

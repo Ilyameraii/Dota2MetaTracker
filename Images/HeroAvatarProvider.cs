@@ -24,7 +24,12 @@ public class HeroAvatarProvider(HttpClient http, IHeroStatsCache cache) : IHeroA
             cancellationToken,
             async (id, token) =>
             {
-                var name = cache.HeroesNames.GetValueOrDefault(id) ?? string.Empty;
+                var name = cache.HeroesNames.GetValueOrDefault(id);
+
+                // Без имени невозможно построить ни имя ресурса, ни URL — загрузку пропускаем.
+                if (string.IsNullOrWhiteSpace(name))
+                    return;
+
                 var urlName = name.ToLowerInvariant().Replace(' ', '_').Replace("-", "");
                 var url = $"https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/{urlName}.png";
 
@@ -40,22 +45,19 @@ public class HeroAvatarProvider(HttpClient http, IHeroStatsCache cache) : IHeroA
                         exception is HttpRequestException or TaskCanceledException
                         && !token.IsCancellationRequested)
                     {
-                        bytes = [];
+                        // Ошибку не кэшируем: при следующем запросе будет новая попытка.
+                        return;
                     }
                 }
 
-                avatarCache[id] = bytes ?? [];
+                if (bytes is { Length: > 0 })
+                    avatarCache[id] = bytes;
             });
 
         var result = new Dictionary<int, byte[]>(heroIds.Count);
 
         foreach (var id in heroIds)
-        {
-            if (avatarCache.TryGetValue(id, out var bytes))
-            {
-                result[id] = bytes;
-            }
-        }
+            result[id] = avatarCache.TryGetValue(id, out var bytes) ? bytes : [];
 
         return result;
     }

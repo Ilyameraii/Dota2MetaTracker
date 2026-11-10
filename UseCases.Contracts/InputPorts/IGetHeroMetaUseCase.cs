@@ -4,5 +4,5 @@ namespace UseCases.Contracts.InputPorts;
 
 public interface IGetHeroMetaUseCase
 {
-      List<Hero> Execute(HeroProcessingOptions options);
+      Task<List<Hero>> ExecuteAsync(HeroProcessingOptions options, CancellationToken cancellationToken = default);
 }

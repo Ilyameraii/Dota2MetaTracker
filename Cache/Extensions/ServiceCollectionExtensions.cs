@@ -7,10 +7,23 @@ namespace Cache.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCacheServices(this IServiceCollection services)
+    /// <summary>
+    ///     Регистрирует кэш статистики героев
+    /// </summary>
+    public static IServiceCollection AddHeroStatsCache(this IServiceCollection services)
     {
         services.AddMemoryCache();
         services.AddSingleton<IHeroStatsCache, HeroStatsCache>();
+
+        return services;
+    }
+
+    /// <summary>
+    ///     Регистрирует кэш настроек пользователей
+    /// </summary>
+    public static IServiceCollection AddUserPreferencesCache(this IServiceCollection services)
+    {
+        services.AddMemoryCache();
         services.AddSingleton<IUserPreferencesCache, UserPreferencesCache>();
 
         return services;
