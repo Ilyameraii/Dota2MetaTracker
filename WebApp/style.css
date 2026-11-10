@@ -187,6 +187,12 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
 .page { padding-block: 34px 56px; }
 .page h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.2vw, 30px); line-height: 1.15; text-wrap: balance; }
 .page .lead { margin: 10px 0 0; max-width: 62ch; color: var(--fg-dim); font-size: 16px; }
+.soon-page { display: grid; place-items: center; min-height: 50vh; text-align: center; }
+.soon {
+  margin: 0; font-family: var(--font-ui); font-weight: 400;
+  font-size: clamp(28px, 5vw, 56px); line-height: 1.2; letter-spacing: 0;
+  color: var(--fg-dim); text-wrap: balance;
+}
 .gloss { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 28px 0 0; }
 .gloss div { padding: 16px 0; border-top: 1px solid var(--line); }
 .gloss dt { font-weight: 700; font-size: 15px; }
