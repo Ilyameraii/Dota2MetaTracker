@@ -10,7 +10,21 @@ using UseCases.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowedOrigins = (builder.Configuration["Cors:Origins"] ?? string.Empty)
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
 builder.Services.AddOpenApi();
+
+if (allowedOrigins.Length > 0)
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(policy =>
+            policy.WithOrigins(allowedOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+    });
+}
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
@@ -26,6 +40,11 @@ builder.Services.AddHeroAvatarProvider();
 builder.Services.AddHostedService<HeroStatsUpdateBackgroundService>();
 
 var app = builder.Build();
+
+if (allowedOrigins.Length > 0)
+{
+    app.UseCors();
+}
 
 app.MapHeroEndpoints();
 
