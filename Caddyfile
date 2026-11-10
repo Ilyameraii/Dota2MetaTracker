@@ -1,13 +1,14 @@
 dota2metatrackerbot.duckdns.org {
-	handle /api/* {
-		reverse_proxy api:8080
-	}
+    handle /api/* {
+        reverse_proxy api:8080
+    }
 
-	handle /bot {
-		reverse_proxy dota2metatracker:8080
-	}
+    handle /bot {
+        reverse_proxy dota2metatracker:8080
+    }
 
-	handle {
-		respond "Not found" 404
-	}
+    handle {
+        root * /srv
+        file_server
+    }
 }

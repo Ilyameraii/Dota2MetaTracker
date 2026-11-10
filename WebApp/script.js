@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var API_BASE = 'https://dota2metatrackerbot.duckdns.org'; // адрес API на VPS, без слэша в конце
+  var API_BASE = ''; // тот же домен
   var API_URL = API_BASE + '/api/heroes';
   var LIMIT = 10;                // строк в таблице по умолчанию
   var ALL_LIMIT = 200;           // лимит для «Показать всех героев»

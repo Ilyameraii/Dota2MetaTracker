@@ -97,6 +97,7 @@
 
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./WebApp:/srv:ro
       - caddy-data:/data
       - caddy-config:/config
 
