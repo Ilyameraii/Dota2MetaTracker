@@ -1,6 +1,7 @@
 using Api.Contracts;
 using Entities.Enums;
 using Entities.Models;
+using Images;
 using Repository.Contracts.Cache;
 using UseCases.Contracts.InputPorts;
 using UseCases.Contracts.OutputPorts.ImageGenerating;
@@ -52,6 +53,7 @@ public static class HeroEndpoints
     {
         app.MapGet(ApiRoutes.Heroes, GetHeroesAsync);
         app.MapGet(ApiRoutes.HeroAvatar, GetHeroAvatarAsync);
+        app.MapGet(ApiRoutes.HeroWebAvatar, GetHeroWebAvatarAsync);
 
         return app;
     }
@@ -127,6 +129,22 @@ public static class HeroEndpoints
         httpContext.Response.Headers.CacheControl = $"public,max-age={AvatarCacheSeconds}";
 
         return Results.File(bytes, "image/png");
+    }
+
+    private static async Task<IResult> GetHeroWebAvatarAsync(
+        int id,
+        HttpContext httpContext,
+        IHeroWebAvatarProvider avatarProvider,
+        CancellationToken cancellationToken)
+    {
+        var bytes = await avatarProvider.GetAvatarAsync(id, cancellationToken);
+
+        if (bytes is null || bytes.Length == 0)
+            return Results.NotFound();
+
+        httpContext.Response.Headers.CacheControl = $"public,max-age={AvatarCacheSeconds}";
+
+        return Results.File(bytes, "image/webp");
     }
 
     private static bool TryParseRanks(string? value, out RankFlags result, out string? error)
