@@ -1,248 +1,6 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="style.css">
 <title>Dota 2 Meta Tracker</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<style>
-/* Layout: full-width top bar, quiet hero band, three-column filter panel, wide stats table.
-   One committed dark look (graphite ground, muted red brand, soft violet selection), so a single theme is set on purpose. */
-:root {
-  --bg: #0c0f17;
-  --bg-deep: #090b12;
-  --panel: #11151f;
-  --panel-2: #141926;
-  --chip: #171c2a;
-  --chip-hover: #1f2536;
-  --line: #1e2433;
-  --line-strong: #2c3448;
-  --fg: #e8eaf0;
-  --fg-dim: #9199ad;
-  --fg-mute: #667088;
-  --sub: #8e97b8;
-  --brand: #c23a33;
-  --violet: #7a72d6;
-  --violet-bg: #1a1c33;
-  --up: #4cb87f;
-  --down: #d9575f;
-  --amber: #d9a23f;
-  --font-ui: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-ui);
-  font-size: 14px;
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-}
-button, input, select { font: inherit; color: inherit; }
-button { cursor: pointer; }
-:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
-.icon { width: 1.15em; height: 1.15em; flex: none; }
-
-.wrap {
-  max-width: 1560px;
-  margin-inline: auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-
-/* ---------- top bar ---------- */
-.top { background: var(--bg-deep); border-bottom: 1px solid var(--line); }
-.top-in { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 28px; min-height: 64px; }
-.brand { display: flex; align-items: center; gap: 12px; color: var(--fg); text-decoration: none; padding-block: 10px; }
-.brand svg { width: 36px; height: 36px; flex: none; }
-.wordmark { font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: 0; white-space: nowrap; }
-.wordmark b { color: var(--brand); font-weight: 700; }
-.wordmark span { color: #b9bfd3; }
-.nav { display: flex; align-items: stretch; align-self: stretch; gap: 4px; }
-.nav a {
-  position: relative; display: flex; align-items: center; gap: 8px;
-  padding: 0 16px; color: var(--fg-dim); text-decoration: none; font-weight: 600; font-size: 14px; white-space: nowrap;
-}
-.nav a:hover { color: var(--fg); }
-.nav a[aria-current="page"] { color: var(--fg); }
-.nav a[aria-current="page"]::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--brand);
-}
-.nav .sep { width: 1px; background: var(--line-strong); margin-block: 22px; margin-inline: 8px; }
-.status { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.stamp {
-  display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--line); border-radius: 6px;
-  padding: 8px 12px; font-size: 13px; color: var(--fg-dim); white-space: nowrap;
-}
-.stamp b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
-.iconbtn {
-  display: grid; place-items: center; width: 38px; height: 38px; border-radius: 6px;
-  background: var(--chip); border: 1px solid var(--line-strong); color: var(--fg);
-}
-.iconbtn:hover { background: var(--chip-hover); }
-.iconbtn.spin svg { animation: spin .7s linear; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ---------- hero band ---------- */
-.hero-band {
-  position: relative; overflow: hidden; border-bottom: 1px solid var(--line);
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, .022) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(0deg, rgba(255, 255, 255, .022) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(180deg, #10141f 0%, #0c0f17 100%);
-}
-.hero-text { position: relative; padding-block: 28px 26px; }
-.hero-text h1 {
-  margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.4vw, 32px);
-  line-height: 1.15; text-wrap: balance; letter-spacing: -.005em;
-}
-.hero-text p { margin: 6px 0 0; color: var(--fg-dim); font-size: clamp(14px, 1.6vw, 16px); }
-
-/* ---------- main ---------- */
-main { padding-block: 22px 56px; }
-
-.filters { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 22px 0; }
-.fgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.fcol { padding: 0 24px; min-width: 0; }
-.fcol + .fcol { border-left: 1px solid var(--line); }
-.fhead { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font-size: 15px; font-weight: 700; }
-.fhead .icon { color: var(--sub); width: 22px; height: 22px; }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.span2 { grid-column: 1 / -1; }
-.chip {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 0;
-  background: var(--chip); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px;
-  font-weight: 600; font-size: 14px; color: var(--fg); text-align: center;
-}
-.chip:hover { background: var(--chip-hover); }
-.chip[aria-pressed="true"] { border-color: var(--violet); background: var(--violet-bg); }
-.chip .star { color: var(--amber); }
-.chip .dot { display: none; width: 8px; height: 8px; border-radius: 50%; background: var(--up); }
-.chip[aria-pressed="true"] .dot { display: inline-block; }
-.rolechip { position: relative; }
-.rolechip[aria-pressed="true"] .dot { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); }
-
-/* sort buttons: arrow is a fixed-size box so it never shrinks, gap to the label is about one space */
-.sortbtn { gap: .3em; white-space: nowrap; }
-.chip.sortbtn { font-size: 14px; padding: 10px 8px; }
-@media (max-width: 1500px) { .sortbtn { white-space: normal; line-height: 1.2; } .chip.sortbtn { font-size: 13px; } }
-.sortbtn .arr { display: none; width: 14px; height: 14px; flex: none; }
-.sortbtn[data-growth] .arr { display: inline-block; color: var(--fg-dim); }
-.sortbtn[aria-pressed="true"] .arr, .sortbtn[data-active="true"] .arr { display: inline-block; color: var(--amber); }
-.sortbtn[data-dir="asc"] .arr { transform: rotate(180deg); }
-
-.reset-row { display: flex; justify-content: center; margin-top: 22px; padding-inline: 16px; }
-.reset {
-  display: inline-flex; align-items: center; gap: 10px; background: var(--chip); border: 1px solid var(--line-strong);
-  border-radius: 6px; padding: 10px 28px; font-weight: 600; font-size: 14px;
-}
-.reset:hover { background: var(--chip-hover); }
-
-/* ---------- table ---------- */
-.board { margin-top: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.scroll { overflow-x: auto; }
-table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-layout: fixed; }
-.stats thead th {
-  text-align: left; font-weight: 600; font-size: 13.5px; color: var(--fg-dim); padding: 20px 8px 18px;
-  background: var(--panel-2); white-space: nowrap; border-bottom: 1px solid var(--line);
-}
-.stats thead th:first-child { padding-left: 20px; color: var(--fg); font-weight: 700; }
-.stats .thb { background: none; border: 0; padding: 0; display: inline-flex; align-items: center; gap: .3em; font-weight: 600; color: inherit; }
-.stats .thb:hover { color: var(--fg); }
-.stats .thb[aria-pressed="true"] { color: var(--fg); }
-.stats tbody td { padding: 0 8px; height: 56px; font-size: 15px; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; border-bottom: 1px solid rgba(255, 255, 255, .03); }
-.stats tbody td:first-child { padding-left: 20px; }
-.stats tbody tr:hover { background: rgba(122, 114, 214, .07); }
-.hero { display: grid; grid-template-columns: 28px 66px 180px auto; align-items: center; gap: 0 16px; }
-.num { color: var(--fg-mute); font-weight: 600; }
-.av {
-  position: relative; width: 66px; height: 38px; border-radius: 3px; overflow: hidden; display: grid; place-items: center;
-  background: hsl(var(--h) 24% 22%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
-}
-.av i { font-style: normal; font-weight: 700; font-size: 13px; letter-spacing: .05em; color: rgba(255, 255, 255, .72); }
-.av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.nm { font-weight: 600; font-size: 15.5px; overflow: hidden; text-overflow: ellipsis; }
-.tag {
-  --c: 145, 153, 173;
-  display: inline-block; padding: 3px 12px; border-radius: 3px; font-size: 12.5px; font-weight: 600;
-  color: rgb(var(--c)); background: rgba(var(--c), .10); border: 1px solid rgba(var(--c), .25);
-}
-.tag-carry { --c: 214, 152, 84; }
-.tag-mid { --c: 90, 184, 140; }
-.tag-off { --c: 214, 100, 112; }
-.tag-sup { --c: 112, 144, 226; }
-.tag-hard { --c: 160, 128, 222; }
-.pos { color: var(--up); }
-.neg { color: var(--down); }
-.zero { color: var(--fg); }
-.rt { display: inline-flex; align-items: center; gap: 8px; }
-.tri { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; }
-.tri.up { border-bottom: 7px solid var(--up); }
-.tri.down { border-top: 7px solid var(--down); }
-.stats tbody td.empty { text-align: center; color: var(--fg-dim); padding: 40px 0; height: auto; }
-
-.tablefoot {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 14px 20px; border-top: 1px solid var(--line); color: var(--fg-dim); font-size: 13px;
-}
-.more { background: var(--chip); border: 1px solid var(--line-strong); border-radius: 6px; padding: 8px 16px; font-weight: 600; font-size: 13px; }
-.more:hover { background: var(--chip-hover); }
-.demo-note { margin: 14px 4px 0; color: var(--fg-mute); font-size: 12.5px; }
-
-/* ---------- loading ---------- */
-.board.loading tbody { opacity: .55; transition: opacity .15s; }
-.stats tbody td.empty .more { margin-left: 12px; }
-
-/* ---------- other views ---------- */
-.page { padding-block: 34px 56px; }
-.page h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.2vw, 30px); line-height: 1.15; text-wrap: balance; }
-.page .lead { margin: 10px 0 0; max-width: 62ch; color: var(--fg-dim); font-size: 16px; }
-.cab { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 28px; margin-top: 28px; align-items: start; }
-.profile { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 22px; display: grid; gap: 8px; }
-.profile label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-dim); margin-top: 8px; }
-.profile label:first-child { margin-top: 0; }
-.profile input, .profile select {
-  width: 100%; background: var(--chip); border: 1px solid var(--line-strong); border-radius: 6px; padding: 10px 12px; font-weight: 600;
-}
-.profile .hint { margin: 10px 0 0; font-size: 12.5px; color: var(--fg-mute); }
-.picks h3 { margin: 0 0 12px; font-size: 16px; }
-.picks ol { list-style: none; margin: 0; padding: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.picks li { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 18px; }
-.picks li + li { border-top: 1px solid var(--line); }
-.picks .grow { margin-left: auto; display: flex; gap: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.picks .nm { min-width: 120px; }
-.gloss { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 28px 0 0; }
-.gloss div { padding: 16px 0; border-top: 1px solid var(--line); }
-.gloss dt { font-weight: 700; font-size: 15px; }
-.gloss dd { margin: 4px 0 0; color: var(--fg-dim); max-width: 52ch; }
-.notice { margin: 26px 0 0; padding: 14px 18px; border-radius: 6px; background: var(--violet-bg); border: 1px solid rgba(122, 114, 214, .35); max-width: 70ch; }
-
-/* ---------- narrow ---------- */
-@media (max-width: 960px) {
-  .filters { padding-block: 20px; }
-  .fgrid { grid-template-columns: 1fr; gap: 22px; }
-  .fcol + .fcol { border-left: 0; border-top: 1px solid var(--line); padding-top: 22px; }
-  .nav { order: 3; flex-basis: 100%; overflow-x: auto; min-height: 48px; }
-  .nav a { padding: 0 14px; }
-  .nav .sep { display: none; }
-  .nav a[aria-current="page"]::after { bottom: 0; }
-  .top-in { padding-bottom: 0; gap: 6px 16px; }
-  .brand { padding-block: 12px 6px; }
-  .wordmark { font-size: 18px; }
-  .brand svg { width: 32px; height: 32px; }
-  .cab { grid-template-columns: minmax(0, 1fr); }
-  .gloss { grid-template-columns: minmax(0, 1fr); }
-}
-@media (max-width: 560px) {
-  .stamp { display: none; }
-  .fcol { padding-inline: 16px; }
-  .grid3 { grid-template-columns: 1fr 1fr; }
-  .sortbtn { white-space: normal; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .iconbtn.spin svg { animation: none; }
-}
-</style>
 
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -307,17 +65,17 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
         <div class="fcol">
           <h2 class="fhead"><svg class="icon"><use href="#i-medal"/></svg>Ранги</h2>
           <div class="grid2" id="ranks">
-            <button class="chip" type="button" data-rank="hg" aria-pressed="false">Herald-Guardian</button>
-            <button class="chip" type="button" data-rank="ca" aria-pressed="false">Crusader-Archon</button>
-            <button class="chip" type="button" data-rank="la" aria-pressed="false">Legend-Ancient</button>
-            <button class="chip" type="button" data-rank="di" aria-pressed="false">Divine-Immortal</button>
-            <button class="chip span2" type="button" data-rank="un" aria-pressed="true"><svg class="icon star"><use href="#i-star"/></svg>Uncalibrated</button>
+            <button class="chip rankchip" type="button" data-rank="hg" aria-pressed="false">Herald-Guardian<span class="dot"></span></button>
+            <button class="chip rankchip" type="button" data-rank="ca" aria-pressed="false">Crusader-Archon<span class="dot"></span></button>
+            <button class="chip rankchip" type="button" data-rank="la" aria-pressed="false">Legend-Ancient<span class="dot"></span></button>
+            <button class="chip rankchip" type="button" data-rank="di" aria-pressed="false">Divine-Immortal<span class="dot"></span></button>
+            <button class="chip rankchip span2" type="button" data-rank="un" aria-pressed="false">Uncalibrated<span class="dot"></span></button>
           </div>
         </div>
         <div class="fcol">
           <h2 class="fhead"><svg class="icon"><use href="#i-radar"/></svg>Роли</h2>
           <div class="grid2" id="roles">
-            <button class="chip rolechip" type="button" data-role="Safelane" aria-pressed="true">Safelane<span class="dot"></span></button>
+            <button class="chip rolechip" type="button" data-role="Safelane" aria-pressed="false">Safelane<span class="dot"></span></button>
             <button class="chip rolechip" type="button" data-role="Midlane" aria-pressed="false">Midlane<span class="dot"></span></button>
             <button class="chip rolechip" type="button" data-role="Offlane" aria-pressed="false">Offlane<span class="dot"></span></button>
             <button class="chip rolechip" type="button" data-role="Support" aria-pressed="false">Support<span class="dot"></span></button>
@@ -327,9 +85,9 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
         <div class="fcol">
           <h2 class="fhead"><svg class="icon"><use href="#i-sort"/></svg>Сортировка</h2>
           <div class="grid3" id="sorts">
-            <button class="chip sortbtn" type="button" data-sort="wr" aria-pressed="true">Винрейт<svg class="arr"><use href="#i-down"/></svg></button>
+            <button class="chip sortbtn" type="button" data-sort="wr" aria-pressed="false">Винрейт<svg class="arr"><use href="#i-down"/></svg></button>
             <button class="chip sortbtn" type="button" data-sort="pr" aria-pressed="false">Пикрейт<svg class="arr"><use href="#i-down"/></svg></button>
-            <button class="chip sortbtn" type="button" data-sort="rating" aria-pressed="false">Рейтинг<svg class="arr"><use href="#i-down"/></svg></button>
+            <button class="chip sortbtn" type="button" data-sort="rating" aria-pressed="true">Рейтинг<svg class="arr"><use href="#i-down"/></svg></button>
             <button class="chip sortbtn" type="button" data-sort="dwr" data-growth aria-pressed="false">Рост винрейта<svg class="arr"><use href="#i-down"/></svg></button>
             <button class="chip sortbtn" type="button" data-sort="dpr" data-growth aria-pressed="false">Рост пикрейта<svg class="arr"><use href="#i-down"/></svg></button>
             <button class="chip sortbtn" type="button" data-sort="drt" data-growth aria-pressed="false">Рост рейтинга<svg class="arr"><use href="#i-down"/></svg></button>
@@ -345,14 +103,14 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
         <div class="scroll">
           <table class="stats">
             <colgroup>
-              <col style="width:32%"><col style="width:10%"><col style="width:10%"><col style="width:11%"><col style="width:12.33%"><col style="width:12.33%"><col style="width:12.34%">
+              <col style="width:32%"><col style="width:11%"><col style="width:10%"><col style="width:10%"><col style="width:12.33%"><col style="width:12.33%"><col style="width:12.34%">
             </colgroup>
             <thead>
               <tr>
                 <th scope="col">Герой</th>
+                <th scope="col" data-th="rating"><button class="thb sortbtn" type="button" data-sort="rating">Рейтинг<svg class="arr"><use href="#i-down"/></svg></button></th>
                 <th scope="col" data-th="wr"><button class="thb sortbtn" type="button" data-sort="wr">Винрейт<svg class="arr"><use href="#i-down"/></svg></button></th>
                 <th scope="col" data-th="pr"><button class="thb sortbtn" type="button" data-sort="pr">Пикрейт<svg class="arr"><use href="#i-down"/></svg></button></th>
-                <th scope="col" data-th="rating"><button class="thb sortbtn" type="button" data-sort="rating">Рейтинг<svg class="arr"><use href="#i-down"/></svg></button></th>
                 <th scope="col" data-th="dwr"><button class="thb sortbtn" type="button" data-sort="dwr" data-growth>Рост винрейта<svg class="arr"><use href="#i-down"/></svg></button></th>
                 <th scope="col" data-th="dpr"><button class="thb sortbtn" type="button" data-sort="dpr" data-growth>Рост пикрейта<svg class="arr"><use href="#i-down"/></svg></button></th>
                 <th scope="col" data-th="drt"><button class="thb sortbtn" type="button" data-sort="drt" data-growth>Рост рейтинга<svg class="arr"><use href="#i-down"/></svg></button></th>
@@ -370,36 +128,8 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
   </section>
 
   <section id="view-cabinet" aria-label="Личный кабинет" hidden>
-    <div class="wrap page">
-      <h2 id="greet">Личный кабинет</h2>
-      <p class="lead">Укажите ранг и роль. Ниже появятся герои, у которых рейтинг растёт быстрее всех.</p>
-      <div class="cab">
-        <form class="profile" id="profile" autocomplete="off">
-          <label for="nick">Ник</label>
-          <input id="nick" type="text" maxlength="24" placeholder="Ваш ник">
-          <label for="p-rank">Ранг</label>
-          <select id="p-rank">
-            <option value="hg">Herald-Guardian</option>
-            <option value="ca">Crusader-Archon</option>
-            <option value="la">Legend-Ancient</option>
-            <option value="di">Divine-Immortal</option>
-            <option value="un">Uncalibrated</option>
-          </select>
-          <label for="p-role">Роль</label>
-          <select id="p-role">
-            <option value="Safelane">Safelane</option>
-            <option value="Midlane">Midlane</option>
-            <option value="Offlane">Offlane</option>
-            <option value="Support">Support</option>
-            <option value="Hard Support">Hard Support</option>
-          </select>
-          <p class="hint">Настройки хранятся только в этом браузере.</p>
-        </form>
-        <div class="picks">
-          <h3>Растут быстрее всех</h3>
-          <ol id="picks"></ol>
-        </div>
-      </div>
+    <div class="wrap page soon-page">
+      <p class="soon">Скоро появится</p>
     </div>
   </section>
 
@@ -419,289 +149,6 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
   </section>
 </main>
 
-<script>
-(function () {
-  'use strict';
-
-  var API_URL = '/api/heroes';   // адрес вашего эндпоинта
-  var LIMIT = 10;                // строк в таблице по умолчанию
-  var ALL_LIMIT = 200;           // лимит для «Показать всех героев»
-
-  var RANKS = { hg: 'Herald-Guardian', ca: 'Crusader-Archon', la: 'Legend-Ancient', di: 'Divine-Immortal', un: 'Uncalibrated' };
-  var ROLE_TAG = {
-    'Safelane': ['Carry', 'carry'],
-    'Midlane': ['Midlane', 'mid'],
-    'Offlane': ['Offlane', 'off'],
-    'Support': ['Support', 'sup'],
-    'Hard Support': ['Hard Support', 'hard']
-  };
-
-  // ---------- контракт с API ----------
-  // Единственное место, где страница знает имена полей JSON.
-  // Если в вашем классе Hero свойства называются иначе, поправьте только эту функцию.
-  // API отдаёт винрейт/пикрейт и их приросты долями (0.52), на странице показываем в процентах (52%)
-  function num(v) { var x = Number(v); return isFinite(x) ? x : 0; }
-  function toRow(h) {
-    return {
-      id: h.id,
-      img: '/api/heroes/' + encodeURIComponent(h.id) + '/avatar',
-      name: String(h.name),
-      role: h.role,
-      wr: num(h.winRate) * 100,
-      pr: num(h.pickRate) * 100,
-      rating: num(h.rating),
-      dwr: num(h.winRateDelta) * 100,
-      dpr: num(h.pickRateDelta) * 100,
-      drt: num(h.ratingDelta)
-    };
-  }
-
-  function query(o) {
-    var p = new URLSearchParams();
-    if (o.rank) p.set('rank', o.rank);
-    if (o.role) p.set('role', o.role);
-    p.set('sort', o.sort);
-    p.set('dir', o.dir);
-    p.set('limit', String(o.limit));
-    return p.toString();
-  }
-
-  // Вся фильтрация, сортировка и расчёты выполняются на сервере.
-  async function getHeroes(o, signal) {
-    var res = await fetch(API_URL + '?' + query(o), { signal: signal, headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var data = await res.json();
-    return {
-      total: num(data.total),
-      updatedAt: data.updatedAt,
-      items: (data.items || []).map(toRow)
-    };
-  }
-
-  // ---------- отображение ----------
-  function esc(v) {
-    return String(v).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-  function seedOf(s) {
-    var h = 2166136261;
-    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-    return h >>> 0;
-  }
-  function initials(name) {
-    var parts = name.split(/[\s-]+/);
-    var s = parts.length > 1 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
-    return s.toUpperCase();
-  }
-  function avatar(name, img) {
-    var base = '<span class="av" style="--h:' + (seedOf(name) % 360) + '"><i>' + esc(initials(name)) + '</i>';
-    if (!img) return base + '</span>';
-    return base + '<img src="' + esc(img) + '" alt="" loading="lazy" onerror="this.remove()"></span>';
-  }
-  function tagFor(role) {
-    var t = ROLE_TAG[role];
-    if (!t) return role ? '<span class="tag">' + esc(role) + '</span>' : '';
-    return '<span class="tag tag-' + t[1] + '">' + t[0] + '</span>';
-  }
-  function signed(v, suffix) {
-    var s = Math.abs(v).toFixed(2) + suffix;
-    return v < 0 ? '-' + s : '+' + s;
-  }
-  function signedInt(v) { return (v < 0 ? '-' : '+') + Math.abs(Math.round(v)); }
-  function cls(v) { return v > 0 ? 'pos' : (v < 0 ? 'neg' : 'zero'); }
-
-  function setStamp(iso) {
-    var d = new Date(iso);
-    if (!iso || isNaN(d.getTime())) return;
-    document.getElementById('stamp').textContent =
-      d.toLocaleString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(' г.', '');
-  }
-
-  // ---------- состояние страницы ----------
-  // Это только выбор кнопок. Серверу уходит каждый раз целиком.
-  var state = { rank: 'un', role: 'Safelane', sort: 'wr', dir: 'desc', all: false };
-
-  function rowHtml(s, i) {
-    var trend = s.drt >= 0 ? 'up' : 'down';
-    return '<tr>' +
-      '<td><div class="hero"><span class="num">' + (i + 1) + '</span>' + avatar(s.name, s.img) +
-      '<span class="nm">' + esc(s.name) + '</span>' + tagFor(state.role || s.role) + '</div></td>' +
-      '<td><span class="' + (s.wr > 50 ? 'pos' : (s.wr < 50 ? 'neg' : 'zero')) + '">' + s.wr.toFixed(2) + '%</span></td>' +
-      '<td>' + s.pr.toFixed(2) + '%</td>' +
-      '<td><span class="rt">' + s.rating.toLocaleString('ru-RU') + '<span class="tri ' + trend + '"></span></span></td>' +
-      '<td class="' + cls(s.dwr) + '">' + signed(s.dwr, '%') + '</td>' +
-      '<td class="' + cls(s.dpr) + '">' + signed(s.dpr, '%') + '</td>' +
-      '<td class="' + cls(s.drt) + '">' + signedInt(s.drt) + '</td>' +
-      '</tr>';
-  }
-
-  function drawRows(data) {
-    var html = data.items.map(rowHtml).join('');
-    if (!data.items.length) html = '<tr><td class="empty" colspan="7">Героев по этим фильтрам нет.</td></tr>';
-    document.getElementById('rows').innerHTML = html;
-    document.getElementById('count').textContent = 'Показано ' + data.items.length + ' из ' + data.total;
-    var more = document.getElementById('more');
-    more.hidden = data.total <= LIMIT;
-    more.textContent = state.all ? 'Свернуть до ' + LIMIT : 'Показать всех героев';
-    setStamp(data.updatedAt);
-  }
-
-  function showTableError() {
-    document.getElementById('rows').innerHTML =
-      '<tr><td class="empty" colspan="7">Не удалось загрузить данные. <button class="more" type="button" id="retry">Повторить</button></td></tr>';
-    document.getElementById('count').textContent = '';
-    document.getElementById('more').hidden = true;
-  }
-
-  var tableCtl = null;
-  async function loadRows() {
-    if (tableCtl) tableCtl.abort();          // быстрые клики: старый запрос отменяем
-    var ctl = tableCtl = new AbortController();
-    var board = document.querySelector('.board');
-    board.classList.add('loading');
-    board.setAttribute('aria-busy', 'true');
-    try {
-      var data = await getHeroes({
-        rank: state.rank, role: state.role, sort: state.sort, dir: state.dir,
-        limit: state.all ? ALL_LIMIT : LIMIT
-      }, ctl.signal);
-      drawRows(data);
-    } catch (e) {
-      if (e.name === 'AbortError') return;
-      showTableError();
-    } finally {
-      if (tableCtl === ctl) { board.classList.remove('loading'); board.removeAttribute('aria-busy'); }
-    }
-  }
-
-  function renderControls() {
-    document.querySelectorAll('[data-rank]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-rank') === state.rank));
-    });
-    document.querySelectorAll('[data-role]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-role') === state.role));
-    });
-    document.querySelectorAll('[data-sort]').forEach(function (b) {
-      var on = b.getAttribute('data-sort') === state.sort;
-      b.setAttribute('aria-pressed', String(on));
-      if (on) b.setAttribute('data-dir', state.dir); else b.removeAttribute('data-dir');
-    });
-    document.querySelectorAll('th[data-th]').forEach(function (th) {
-      var on = th.getAttribute('data-th') === state.sort;
-      th.setAttribute('aria-sort', on ? (state.dir === 'desc' ? 'descending' : 'ascending') : 'none');
-    });
-  }
-
-  function render() { renderControls(); loadRows(); }
-
-  // ---------- личный кабинет ----------
-  // Ранг и роль хранятся в браузере. Если страница откроется как Telegram Mini App,
-  // здесь можно будет читать и писать их через /api/me/preferences.
-  var profile = { nick: '', rank: 'di', role: 'Midlane' };
-  try {
-    var saved = JSON.parse(localStorage.getItem('dota-meta-profile') || 'null');
-    if (saved && RANKS[saved.rank] && ROLE_TAG[saved.role]) {
-      profile = { nick: String(saved.nick || '').slice(0, 24), rank: saved.rank, role: saved.role };
-    }
-  } catch (e) { /* storage unavailable */ }
-
-  function saveProfile() {
-    try { localStorage.setItem('dota-meta-profile', JSON.stringify(profile)); } catch (e) { /* ignore */ }
-  }
-
-  var picksCtl = null;
-  async function renderPicks() {
-    if (picksCtl) picksCtl.abort();
-    var ctl = picksCtl = new AbortController();
-    var ol = document.getElementById('picks');
-    try {
-      var data = await getHeroes({ rank: profile.rank, role: profile.role, sort: 'drt', dir: 'desc', limit: 5 }, ctl.signal);
-      ol.innerHTML = data.items.length ? data.items.map(function (s) {
-        return '<li>' + avatar(s.name, s.img) + '<span class="nm">' + esc(s.name) + '</span>' + tagFor(profile.role) +
-          '<span class="grow"><span class="' + cls(s.drt) + '">' + signedInt(s.drt) + ' рейтинга</span>' +
-          '<span class="' + (s.wr > 50 ? 'pos' : 'neg') + '">' + s.wr.toFixed(2) + '%</span></span></li>';
-      }).join('') : '<li>Нет данных по этим параметрам.</li>';
-      setStamp(data.updatedAt);
-    } catch (e) {
-      if (e.name === 'AbortError') return;
-      ol.innerHTML = '<li>Не удалось загрузить данные.</li>';
-    }
-  }
-
-  function renderCabinet() {
-    document.getElementById('nick').value = profile.nick;
-    document.getElementById('p-rank').value = profile.rank;
-    document.getElementById('p-role').value = profile.role;
-    document.getElementById('greet').textContent = profile.nick ? 'Привет, ' + profile.nick : 'Личный кабинет';
-    renderPicks();
-  }
-
-  // ---------- маршрутизация ----------
-  var VIEWS = ['heroes', 'cabinet', 'about'];
-  function currentView() {
-    var v = (location.hash || '').slice(1);
-    return VIEWS.indexOf(v) === -1 ? 'heroes' : v;
-  }
-  function route() {
-    var v = currentView();
-    VIEWS.forEach(function (x) { document.getElementById('view-' + x).hidden = x !== v; });
-    document.querySelectorAll('.nav a').forEach(function (a) {
-      if (a.getAttribute('data-view') === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
-    });
-    document.getElementById('heroband').hidden = v !== 'heroes';
-    if (v === 'cabinet') renderCabinet();
-  }
-
-  // ---------- события ----------
-  document.addEventListener('click', function (e) {
-    var t = e.target;
-    if (!t.closest) return;
-    var b;
-    if ((b = t.closest('[data-rank]'))) {
-      var k = b.getAttribute('data-rank');
-      state.rank = state.rank === k ? null : k;
-      render();
-    } else if ((b = t.closest('[data-role]'))) {
-      var r = b.getAttribute('data-role');
-      state.role = state.role === r ? null : r;
-      render();
-    } else if ((b = t.closest('[data-sort]'))) {
-      var s = b.getAttribute('data-sort');
-      if (state.sort === s) state.dir = state.dir === 'desc' ? 'asc' : 'desc';
-      else { state.sort = s; state.dir = 'desc'; }
-      render();
-    } else if (t.closest('#reset')) {
-      state = { rank: null, role: null, sort: 'wr', dir: 'desc', all: false };
-      render();
-    } else if (t.closest('#more')) {
-      state.all = !state.all;
-      loadRows();
-    } else if (t.closest('#retry')) {
-      loadRows();
-    } else if (t.closest('#refresh')) {
-      var btn = document.getElementById('refresh');
-      btn.classList.remove('spin');
-      void btn.offsetWidth;
-      btn.classList.add('spin');
-      loadRows();
-      if (currentView() === 'cabinet') renderPicks();
-    }
-  });
-
-  document.getElementById('profile').addEventListener('submit', function (e) { e.preventDefault(); });
-  document.getElementById('nick').addEventListener('input', function (e) {
-    profile.nick = e.target.value.trim().slice(0, 24);
-    document.getElementById('greet').textContent = profile.nick ? 'Привет, ' + profile.nick : 'Личный кабинет';
-    saveProfile();
-  });
-  document.getElementById('p-rank').addEventListener('change', function (e) { profile.rank = e.target.value; saveProfile(); renderCabinet(); });
-  document.getElementById('p-role').addEventListener('change', function (e) { profile.role = e.target.value; saveProfile(); renderCabinet(); });
-  window.addEventListener('hashchange', route);
-
-  render();
-  route();
-})();
-</script>
+<script src="script.js"></script>
 
 </body></html>
