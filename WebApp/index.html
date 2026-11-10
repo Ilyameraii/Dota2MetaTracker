@@ -444,12 +444,12 @@ table.stats { width: 100%; min-width: 1240px; border-collapse: collapse; table-l
   function toRow(h) {
     return {
       id: h.id,
-      img: '/api/heroes/' + encodeURIComponent(h.id) + '/avatar',
+      img: '/api/heroes/' + encodeURIComponent(h.id) + '/avatar.webp',
       name: String(h.name),
       role: h.role,
       wr: num(h.winRate) * 100,
       pr: num(h.pickRate) * 100,
-      rating: num(h.rating),
+      rating: num(h.rating) * 1000,
       dwr: num(h.winRateDelta) * 100,
       dpr: num(h.pickRateDelta) * 100,
       drt: num(h.ratingDelta)

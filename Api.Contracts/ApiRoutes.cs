@@ -14,4 +14,9 @@ public static class ApiRoutes
     ///     Иконка героя по идентификатору
     /// </summary>
     public const string HeroAvatar = "/api/heroes/{id:int}/avatar";
+
+    /// <summary>
+    ///     Компактная WebP-иконка героя по идентификатору
+    /// </summary>
+    public const string HeroWebAvatar = "/api/heroes/{id:int}/avatar.webp";
 }

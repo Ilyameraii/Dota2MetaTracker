@@ -15,6 +15,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IHeroAvatarProvider>(
             sp => sp.GetRequiredService<HeroAvatarProvider>());
 
+        services.AddSingleton<IHeroWebAvatarProvider, HeroWebAvatarProvider>();
+
         return services;
     }
 
