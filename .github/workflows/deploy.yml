@@ -15,15 +15,19 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Настроить SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null && echo "key OK"
 
       - name: Обновить и перезапустить
         run: |
-          ssh -i ~/.ssh/deploy_key -o ConnectTimeout=20 \
+          ssh -v -i ~/.ssh/deploy_key -o ConnectTimeout=20 \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             'cd ~/Dota2MetaTrackerWebApi &&
              git pull --ff-only &&
