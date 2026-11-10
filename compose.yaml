@@ -9,9 +9,6 @@
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
 
-    ports:
-      - "5432:5432"
-
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
@@ -53,6 +50,7 @@
       ASPNETCORE_HTTP_PORTS: "8080"
       StratzApi__Token: "${STRATZ_API_TOKEN}"
       ConnectionStrings__MetaTracker: "Host=postgres;Port=5432;Database=dota2metatracker;Username=postgres;Password=${POSTGRES_PASSWORD}"
+      Cors__Origins: "${CORS_ORIGINS}"
 
     depends_on:
       postgres:
@@ -71,9 +69,6 @@
 
     container_name: dota2metatracker
 
-    ports:
-      - "8080:8080"
-
     environment:
       ASPNETCORE_HTTP_PORTS: "8080"
       Telegram__Token: "${TELEGRAM_TOKEN}"
@@ -91,22 +86,27 @@
 
     restart: unless-stopped
 
-  webapp:
-    image: webapp:latest
+  caddy:
+    image: caddy:2-alpine
 
-    build:
-      context: .
-      dockerfile: WebApp/Dockerfile
-
-    container_name: dota2metatracker-webapp
+    container_name: dota2metatracker-caddy
 
     ports:
       - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
 
     depends_on:
       - api
+      - dota2metatracker
 
     restart: unless-stopped
 
 volumes:
   postgres-data:
+  caddy-data:
+  caddy-config:

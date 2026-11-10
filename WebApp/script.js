@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  var API_URL = '/api/heroes';   // адрес вашего эндпоинта
+  var API_BASE = 'https://api.example.com'; // адрес API на VPS, без слэша в конце
+  var API_URL = API_BASE + '/api/heroes';
   var LIMIT = 10;                // строк в таблице по умолчанию
   var ALL_LIMIT = 200;           // лимит для «Показать всех героев»
 
@@ -13,7 +14,7 @@
   function toRow(h) {
     return {
       id: h.id,
-      img: '/api/heroes/' + encodeURIComponent(h.id) + '/avatar.webp',
+      img: API_BASE + '/api/heroes/' + encodeURIComponent(h.id) + '/avatar.webp',
       name: String(h.name),
       role: h.role,
       wr: num(h.winRate) * 100,

@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{8CE1B5
 	ProjectSection(SolutionItems) = preProject
 		WebApp\Dockerfile = WebApp\Dockerfile
 		WebApp\index.html = WebApp\index.html
+		WebApp\script.js = WebApp\script.js
+		WebApp\style.css = WebApp\style.css
 	EndProjectSection
 EndProject
 Global
