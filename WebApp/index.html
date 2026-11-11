@@ -157,8 +157,8 @@ main { padding-block: 22px 56px; }
 /* ---------- table ---------- */
 .board { margin-top: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .scroll { overflow-x: auto; }
-table.stats { width: 100%; min-width: 980px; border-collapse: collapse; table-layout: fixed; }
-.stats .c-hero { width: 196px; }
+table.stats { width: 100%; min-width: 1060px; border-collapse: collapse; table-layout: fixed; }
+.stats .c-hero { width: 260px; }
 .stats thead th {
   text-align: left; font-weight: 600; font-size: 13.5px; color: var(--fg-dim); padding: 20px 8px 18px;
   background: var(--panel-2); white-space: nowrap; border-bottom: 1px solid var(--line);
@@ -168,7 +168,7 @@ table.stats { width: 100%; min-width: 980px; border-collapse: collapse; table-la
 .stats .thb:hover { color: var(--fg); }
 .stats .thb[aria-pressed="true"] { color: var(--fg); }
 .stats tbody td { padding: 0 8px; height: 56px; font-size: 15px; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; border-bottom: 1px solid rgba(255, 255, 255, .03); }
-.stats tbody td:first-child { padding-left: 20px; }
+.stats tbody td:first-child { padding-left: 20px; padding-right: 32px; }
 .stats tbody tr:hover { background: rgba(122, 114, 214, .07); }
 .hero { display: grid; grid-template-columns: 66px minmax(0, 1fr); align-items: center; gap: 0 12px; }
 .av {
@@ -256,6 +256,7 @@ table.stats { width: 100%; min-width: 980px; border-collapse: collapse; table-la
   .stats thead th { padding: 14px 6px 12px; font-size: 12.5px; }
   .stats thead th:first-child, .stats tbody td:first-child { padding-left: 12px; }
   .stats tbody td { padding: 0 6px; font-size: 14px; height: 52px; }
+  .stats tbody td:first-child { padding-right: 8px; }
   .stats thead th:first-child, .stats tbody td:first-child {
     position: sticky; left: 0; z-index: 1; box-shadow: 1px 0 0 var(--line);
   }
