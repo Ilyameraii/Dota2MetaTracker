@@ -49,12 +49,16 @@ public class UpdateHeroStatsUseCase(
         IReadOnlyList<MetaUpdate> outdatedUpdates,
         CancellationToken ct)
     {
-        if (outdatedUpdates.Count == 0)
-            return [];
-
         // Список отсортирован по убыванию даты, поэтому первым идёт обновление,
         // наиболее близкое к недельной давности.
-        var oldUpdate = outdatedUpdates[0];
+        // Если статистики старше недели ещё нет, используем самый ранний доступный снимок.
+        var oldUpdate = outdatedUpdates.Count > 0
+            ? outdatedUpdates[0]
+            : await metaUpdateRepository.GetEarliestAsync(ct);
+
+        if (oldUpdate is null)
+            return [];
+
         return await heroStatsRepository.GetByMetaUpdateIdAsync(oldUpdate.Id, ct);
     }
 }

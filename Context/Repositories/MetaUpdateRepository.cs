@@ -28,6 +28,12 @@ public class MetaUpdateRepository(MetaTrackerDbContext context) : IMetaUpdateRep
             .FirstOrDefaultAsync(metaUpdate => metaUpdate.Id == id, cancellationToken);
 
     /// <inheritdoc/>
+    public Task<MetaUpdate?> GetEarliestAsync(CancellationToken cancellationToken = default) =>
+        context.MetaUpdates
+            .OrderBy(metaUpdate => metaUpdate.DateTime)
+            .FirstOrDefaultAsync(cancellationToken);
+
+    /// <inheritdoc/>
     public Task AddAsync(MetaUpdate metaUpdate, CancellationToken cancellationToken = default) =>
         context.MetaUpdates.AddAsync(metaUpdate, cancellationToken).AsTask();
 
