@@ -23,6 +23,11 @@ public interface IMetaUpdateRepository
     Task<MetaUpdate?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
+    ///     Возвращает самое раннее обновление статистики или <see langword="null" />, если обновлений нет
+    /// </summary>
+    Task<MetaUpdate?> GetEarliestAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
     ///     Добавляет новое обновление статистики
     /// </summary>
     Task AddAsync(MetaUpdate metaUpdate, CancellationToken cancellationToken = default);
